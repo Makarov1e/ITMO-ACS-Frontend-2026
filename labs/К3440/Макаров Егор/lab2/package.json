@@ -12,7 +12,8 @@
     "preview": "vite preview --host 0.0.0.0 --port 5172 --strictPort",
     "reset-db": "node scripts/reset-db.mjs",
     "test": "node --test tests/api.test.mjs",
-    "test:e2e": "node --test tests/browser.e2e.test.mjs"
+    "test:e2e": "node --test tests/browser.e2e.test.mjs",
+    "test:a11y": "node --test tests/a11y.e2e.test.mjs"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
