@@ -1,0 +1,85 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+:root {
+  --tt-ink: #292523;
+  --tt-muted: #726a65;
+  --tt-milk: #f8f3eb;
+  --tt-paper: #fffdfa;
+  --tt-clay: #a94e38;
+  --tt-clay-deep: #823826;
+  --tt-sage: #dce5d8;
+  --tt-line: #e7ddd3;
+  --tt-shadow: 0 16px 36px rgba(63, 45, 34, .12);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--tt-milk); color: var(--tt-ink); font-family: Inter, Arial, sans-serif; line-height: 1.55; }
+main { min-height: calc(100vh - 206px); }
+a { color: inherit; }
+a:hover { color: var(--tt-clay); }
+:focus-visible { outline: 3px solid #d48365; outline-offset: 3px; }
+
+.brand { font-family: Georgia, 'Times New Roman', serif; font-size: 1.65rem; font-weight: 700; letter-spacing: -.04em; text-decoration: none; }
+.brand .brand-dot { color: var(--tt-clay); }
+.navbar { background: rgba(255, 253, 250, .94); border-bottom: 1px solid var(--tt-line); }
+.navbar .nav-link { color: var(--tt-ink); font-weight: 600; }
+.navbar .nav-link.active, .navbar .nav-link:hover { color: var(--tt-clay); }
+.badge-demo { background: var(--tt-sage); color: #3d573a; border: 1px solid #bfceb9; font-size: .72rem; font-weight: 700; letter-spacing: .03em; }
+
+.hero { background: linear-gradient(105deg, rgba(32, 27, 24, .82), rgba(32, 27, 24, .36)), url('../assets/fine-dining-unsplash.jpg') center/cover; min-height: 360px; display: grid; align-items: end; padding: 4rem 0; color: white; }
+.eyebrow { color: var(--tt-clay); text-transform: uppercase; font-size: .75rem; letter-spacing: .13em; font-weight: 800; }
+.hero .eyebrow { color: #ffd6bc; }
+.display-title { font: 700 clamp(2.25rem, 5vw, 4.4rem)/.98 Georgia, 'Times New Roman', serif; letter-spacing: -.05em; max-width: 730px; }
+.section-title { font: 700 clamp(1.85rem, 3.5vw, 3rem)/1.05 Georgia, 'Times New Roman', serif; letter-spacing: -.035em; }
+.lead-muted { color: var(--tt-muted); }
+
+.filter-panel, .profile-card, .booking-card, .detail-panel, .auth-card { background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 18px; box-shadow: var(--tt-shadow); }
+.filter-panel { margin-top: -30px; position: relative; z-index: 2; }
+.form-label { font-size: .84rem; font-weight: 700; margin-bottom: .35rem; }
+.form-control, .form-select { background: #fffdfa; border-color: #d7cbc0; min-height: 46px; }
+.form-control:focus, .form-select:focus { border-color: var(--tt-clay); box-shadow: 0 0 0 .25rem rgba(169, 78, 56, .16); }
+.btn-clay { --bs-btn-color: #fff; --bs-btn-bg: var(--tt-clay); --bs-btn-border-color: var(--tt-clay); --bs-btn-hover-color: #fff; --bs-btn-hover-bg: var(--tt-clay-deep); --bs-btn-hover-border-color: var(--tt-clay-deep); --bs-btn-active-bg: var(--tt-clay-deep); --bs-btn-active-border-color: var(--tt-clay-deep); font-weight: 700; }
+.btn-soft { background: #f4e7de; border: 1px solid #e7c9bb; color: #743524; font-weight: 700; }
+.btn-soft:hover { background: #edd7ca; color: #5f271a; }
+.btn-outline-ink { border-color: #554b45; color: #554b45; font-weight: 700; }
+.btn-outline-ink:hover { background: #554b45; color: white; }
+
+.restaurant-card { height: 100%; overflow: hidden; background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 18px; box-shadow: 0 8px 24px rgba(63, 45, 34, .06); transition: transform .18s ease, box-shadow .18s ease; }
+.restaurant-card:hover { transform: translateY(-4px); box-shadow: var(--tt-shadow); }
+.restaurant-card img { width: 100%; height: 210px; object-fit: cover; }
+.restaurant-card .card-body { padding: 1.35rem; }
+.restaurant-card h2 { font: 700 1.55rem/1.1 Georgia, 'Times New Roman', serif; letter-spacing: -.025em; }
+.rating { color: #8c4d22; font-weight: 800; }
+.meta { color: var(--tt-muted); font-size: .92rem; }
+.tag { display: inline-block; margin: 0 .25rem .25rem 0; padding: .25rem .54rem; border-radius: 999px; background: #f5eee8; color: #675b54; font-size: .76rem; }
+.empty-state { border: 2px dashed #d8c8bb; border-radius: 18px; padding: 3rem 1.5rem; text-align: center; color: var(--tt-muted); }
+.state-panel { background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 18px; color: var(--tt-muted); padding: 2rem 1.5rem; text-align: center; }
+.state-error { border-color: #dc9d91; color: #733323; }
+
+.restaurant-hero { min-height: 360px; color: white; display: flex; align-items: end; background: linear-gradient(0deg, rgba(26, 22, 19, .76), rgba(26, 22, 19, .08)), url('../assets/restaurant-interior-unsplash.jpg') center/cover; padding: 3.5rem 0; }
+.restaurant-hero .meta { color: #f1e9e1; }
+.gallery-image { width: 100%; height: 250px; object-fit: cover; border-radius: 16px; }
+.menu-row { border-bottom: 1px solid var(--tt-line); padding: 1rem 0; }
+.menu-row:last-child { border-bottom: 0; }
+.review { border-left: 3px solid var(--tt-clay); padding-left: 1rem; }
+
+.auth-shell { min-height: calc(100vh - 210px); display: grid; place-items: center; padding: 3rem 0; }
+.auth-card { width: min(100%, 500px); padding: clamp(1.5rem, 4vw, 2.5rem); }
+.auth-visual { background: linear-gradient(135deg, rgba(37, 28, 24, .76), rgba(37, 28, 24, .32)), url('../assets/luxury-interior-unsplash.jpg') center/cover; min-height: 230px; border-radius: 16px; color: white; padding: 1.5rem; display: flex; align-items: end; }
+.password-note { font-size: .85rem; color: var(--tt-muted); }
+
+.avatar { width: 74px; height: 74px; display: grid; place-items: center; border-radius: 50%; background: #ead3c8; color: #733323; font: 700 1.8rem Georgia, serif; }
+.booking-item { background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 16px; padding: 1.15rem; }
+.booking-status { background: #e5f0e2; color: #386143; font-size: .78rem; font-weight: 800; }
+.notice { border-left: 4px solid var(--tt-clay); background: #f8ebe5; color: #693225; padding: 1rem 1.1rem; border-radius: 0 10px 10px 0; }
+footer { background: #302a27; color: #e9e0d8; }
+footer a { color: #fff1e7; }
+
+@media (max-width: 767.98px) {
+  .hero, .restaurant-hero { min-height: 310px; padding: 2.5rem 0; }
+  .filter-panel { margin-top: -18px; }
+  .restaurant-card img { height: 190px; }
+  .gallery-image { height: 200px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }

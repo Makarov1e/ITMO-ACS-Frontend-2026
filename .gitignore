@@ -4,6 +4,7 @@ node_modules
 **/node_modules/
 **/dist/
 /dbs
+labs/К3440/Макаров Егор/lab2/api/runtime/
 __pycache__/
 static/
 media/

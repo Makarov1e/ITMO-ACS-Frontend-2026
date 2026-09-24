@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TableTime — учебный интерфейс бронирования ресторанов в Санкт-Петербурге.">
+  <title>Регистрация — TableTime</title>
+</head>
+<body data-page="register">
+  <a class="visually-hidden-focusable position-absolute top-0 start-0 p-3 bg-white" href="#main-content">Перейти к содержимому</a>
+  <header id="site-header"></header>
+  <main id="main-content">
+<section class="container auth-shell"><div class="row g-4 align-items-stretch w-100 justify-content-center"><div class="col-lg-5 order-lg-2 d-none d-lg-block"><div class="auth-visual"><div><p class="eyebrow">Новый профиль</p><h1 class="section-title">Сохраните планы на ужин</h1></div></div></div><div class="col-lg-5"><div class="auth-card"><p class="eyebrow">Учебная регистрация</p><h1 class="section-title mb-2">Создать профиль</h1><p class="lead-muted">Запись отправляется только в локальный учебный API. Не вводите реальные пароли или персональные данные.</p><div id="registerMessage" class="alert" hidden role="alert"></div><form id="registerForm" novalidate><div class="mb-3"><label class="form-label" for="registerName">Имя</label><input class="form-control" id="registerName" autocomplete="name" required minlength="2" placeholder="Как к вам обращаться"></div><div class="mb-3"><label class="form-label" for="registerEmail">Учебный e-mail</label><input class="form-control" id="registerEmail" type="email" autocomplete="email" required placeholder="student@example.com"></div><div class="mb-3"><label class="form-label" for="registerPassword">Учебный пароль</label><input class="form-control" id="registerPassword" type="password" autocomplete="new-password" required minlength="6"><p class="password-note mb-0 mt-1">От 6 символов; сервер хранит только bcrypt-хеш, а не сам пароль.</p></div><button class="btn btn-clay w-100" type="submit">Создать учебный профиль</button></form><p class="mb-0 mt-4 small">Уже есть профиль? <a href="login.html">Войти</a></p></div></div></div></section>
+</main>
+  <footer id="site-footer"></footer>
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>
