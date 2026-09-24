@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+:root {
+  color: #28302c;
+  background: #f7f3eb;
+  font-family: 'Manrope', Arial, sans-serif;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: #f7f3eb; }
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid #e4a271; outline-offset: 3px; }
+
+.page-shell { min-height: 100vh; }
+.hero { min-height: 405px; position: relative; color: #fffdf7; overflow: hidden; background: linear-gradient(90deg, rgba(37, 37, 30, .91) 0%, rgba(48, 43, 31, .72) 48%, rgba(50, 40, 26, .26)), url('./assets/restaurant-interior-unsplash.jpg') center 46% / cover; }
+.hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(25, 26, 22, .18), transparent 55%, rgba(40, 35, 26, .46)); pointer-events: none; }
+.topbar, .hero-content { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+.topbar { min-height: 82px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.25); }
+.brand { color: inherit; text-decoration: none; display: inline-flex; gap: 10px; align-items: center; font-family: 'Playfair Display', Georgia, serif; font-size: 24px; font-weight: 600; letter-spacing: -.8px; }
+.brand-mark { width: 31px; height: 31px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; font-size: 17px; }
+.city, .eyebrow, .photo-label, .chosen-label { text-transform: uppercase; letter-spacing: 1.2px; font-family: 'DM Mono', monospace; font-size: 11px; }
+.city { margin: 0; color: rgba(255,253,247,.88); }
+.hero-content { padding-top: 75px; padding-bottom: 55px; }
+.eyebrow { margin: 0 0 12px; color: #b84f35; font-weight: 500; }
+.hero .eyebrow { color: #f6c3a5; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; letter-spacing: -.75px; }
+h1 { font-size: clamp(43px, 5.2vw, 72px); line-height: .98; max-width: 700px; margin-bottom: 22px; }
+.hero-copy { max-width: 505px; font-size: 15px; line-height: 1.7; color: rgba(255,253,247,.87); }
+
+.content-grid { max-width: 1240px; margin: -32px auto 0; position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.64fr) minmax(330px, .86fr); gap: 24px; padding: 0 32px 54px; }
+.discover-panel, .booking-panel { border-radius: 4px; }
+.discover-panel { padding: 36px 38px 40px; background: #fffdf8; box-shadow: 0 16px 42px rgba(63, 45, 27, .1); }
+.booking-panel { align-self: start; padding: 34px; background: #e8dfd0; border-top: 4px solid #b84f35; }
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+h2 { margin-bottom: 0; font-size: 30px; line-height: 1.15; color: #28302c; }
+.result-count { padding-bottom: 4px; color: #73766f; font-family: 'DM Mono', monospace; font-size: 12px; white-space: nowrap; }
+.filter-list { display: flex; gap: 9px; flex-wrap: wrap; padding: 29px 0 24px; border-bottom: 1px solid #e9e2d8; }
+.filter-button { border: 1px solid #d9d0c4; background: transparent; color: #4d534d; padding: 9px 13px; border-radius: 999px; font-size: 12px; transition: .18s; }
+.filter-button:hover, .filter-button.active { border-color: #b84f35; color: #fffdf8; background: #b84f35; }
+.restaurant-list { display: grid; gap: 14px; margin-top: 22px; }
+.restaurant-card { display: grid; grid-template-columns: 157px 1fr; min-height: 176px; overflow: hidden; border: 1px solid #e4ddd2; background: #fffdf8; transition: border-color .18s, box-shadow .18s, transform .18s; }
+.restaurant-card:hover { border-color: #c8a78d; transform: translateY(-1px); box-shadow: 0 8px 18px rgba(67, 53, 37, .08); }
+.restaurant-card.selected { border: 2px solid #b84f35; }
+.card-image { position: relative; min-height: 100%; overflow: hidden; background: url('./assets/restaurant-interior-unsplash.jpg') center / cover; }
+.card-image::before { content: ''; position: absolute; inset: 0; background: linear-gradient(130deg, rgba(32, 39, 34, .08), rgba(184, 79, 53, .24)); }
+.accent-olive .card-image { background-position: 23% 50%; filter: sepia(.15) hue-rotate(25deg); }
+.accent-sand .card-image { background-position: 80% 50%; filter: sepia(.25) saturate(.8) brightness(1.06); }
+.photo-label { position: absolute; top: 11px; left: 11px; z-index: 1; padding: 6px 8px; color: #fffdf8; background: rgba(36, 45, 40, .85); font-size: 9px; }
+.card-body { padding: 19px 21px 17px; display: flex; flex-direction: column; min-width: 0; }
+.card-topline, .card-footer, .history-title-row { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.card-topline p, .rating { margin: 0; font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .7px; color: #767b73; }
+.rating { color: #aa4a33; letter-spacing: 0; }
+.card-body h3 { font-size: 23px; margin: 6px 0 5px; color: #28302c; }
+.card-description { color: #697068; font-size: 12px; line-height: 1.55; margin-bottom: 15px; max-width: 500px; }
+.card-footer { margin-top: auto; }
+.restaurant-meta { color: #73776f; font-size: 10px; }
+.select-button { border: 0; color: #9c402a; background: transparent; font-size: 12px; font-weight: 700; padding: 4px 0; }
+.select-button span, .booking-submit span { font-size: 17px; vertical-align: -1px; margin-left: 3px; }
+
+.booking-panel > .eyebrow { margin-bottom: 10px; }
+.booking-panel h2 { font-size: 29px; margin-bottom: 25px; }
+.booking-form { display: grid; gap: 17px; }
+.chosen-restaurant { padding: 14px 16px; background: #f9f6ef; border-left: 2px solid #b84f35; display: grid; gap: 4px; }
+.chosen-label { color: #9b4a36; font-size: 9px; }
+.chosen-restaurant strong { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; color: #2d352f; }
+.chosen-restaurant span:last-child { color: #73766e; font-size: 11px; }
+.booking-form label { display: grid; gap: 7px; color: #545951; font-size: 11px; font-weight: 700; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+input, select { width: 100%; min-height: 43px; color: #303832; border: 1px solid #cfc4b5; background: #fbf9f3; border-radius: 2px; padding: 9px 10px; font-size: 13px; }
+.guest-control { display: grid; grid-template-columns: 43px 1fr 43px; min-height: 43px; background: #fbf9f3; border: 1px solid #cfc4b5; }
+.guest-control button { border: 0; background: transparent; color: #a34731; font-size: 20px; }
+.guest-control button:disabled { color: #bdb7ad; cursor: default; }
+.guest-control output { display: grid; place-items: center; font-size: 12px; color: #353c35; border-left: 1px solid #ded6ca; border-right: 1px solid #ded6ca; }
+.booking-submit { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 48px; border: 0; color: #fffdf8; background: #b84f35; font-weight: 700; font-size: 13px; transition: background .18s; }
+.booking-submit:hover { background: #933c2a; }
+.form-note { margin: -7px 0 0; color: #77766f; font-size: 10px; line-height: 1.45; text-align: center; }
+.form-error { color: #a13f2c; font-size: 11px; margin: -6px 0 0; }
+.notice { margin: 21px 0 0; padding: 12px 13px; color: #254b3e; background: #d8e8dc; border-left: 3px solid #477c60; font-size: 12px; line-height: 1.45; }
+.booking-history { margin-top: 24px; padding-top: 21px; border-top: 1px solid #cfc4b5; }
+.history-title-row h3 { margin: 0; font-size: 19px; }
+.history-title-row span { width: 23px; height: 23px; display: grid; place-items: center; border-radius: 50%; color: #fffdf8; background: #657160; font-family: 'DM Mono', monospace; font-size: 10px; }
+.booking-history ul { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.booking-history li { display: grid; gap: 3px; padding-bottom: 10px; border-bottom: 1px solid rgba(112, 106, 95, .2); }
+.booking-history strong { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; }
+.booking-history li span { color: #636961; font-size: 11px; }
+.empty-state { margin: 0; color: #6d716a; line-height: 1.5; }
+
+@media (max-width: 850px) { .content-grid { grid-template-columns: 1fr; } .booking-panel { max-width: none; } }
+@media (max-width: 560px) { .topbar, .hero-content, .content-grid { padding-left: 18px; padding-right: 18px; } .hero { min-height: 385px; } .hero-content { padding-top: 65px; } .city { font-size: 9px; } .brand { font-size: 21px; } .discover-panel, .booking-panel { padding: 25px 20px; } .section-heading { display: block; } .result-count { display: block; padding-top: 10px; } .restaurant-card { grid-template-columns: 106px 1fr; min-height: 191px; } .card-body { padding: 15px; } .card-body h3 { font-size: 20px; } .card-description { font-size: 11px; } .restaurant-meta { display: none; } .select-button { font-size: 11px; } .form-grid { grid-template-columns: 1fr; } }

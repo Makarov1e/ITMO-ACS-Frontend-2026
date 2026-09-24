@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TableTime — учебный интерфейс бронирования ресторанов в Санкт-Петербурге.">
+  <title>Бронирования — TableTime</title>
+</head>
+<body data-page="bookings">
+  <a class="visually-hidden-focusable position-absolute top-0 start-0 p-3 bg-white" href="#main-content">Перейти к содержимому</a>
+  <header id="site-header"></header>
+  <main id="main-content">
+<section class="container py-5"><div class="d-flex flex-wrap gap-3 justify-content-between align-items-end mb-4"><div><p class="eyebrow">Локальная история</p><h1 class="section-title mb-0">Мои бронирования</h1></div><a class="btn btn-clay" href="index.html">Найти ресторан</a></div><div id="bookingNotice" class="alert alert-success" hidden role="status"><strong>Бронь сохранена.</strong> Это учебная запись в localStorage текущего браузера, а не заявка ресторану.</div><div class="notice mb-4"><strong>Важно:</strong> все даты, рестораны и подтверждения на этой странице демонстрационные. Отмена удаляет запись только локально.</div><div id="bookingList"></div></section>
+</main>
+  <footer id="site-footer"></footer>
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

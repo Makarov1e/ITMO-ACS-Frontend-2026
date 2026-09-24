@@ -1,0 +1,2 @@
+ACCESSIBILITY_SCORE=93
+FAILED_AUDITS=aria-prohibited-attr,color-contrast

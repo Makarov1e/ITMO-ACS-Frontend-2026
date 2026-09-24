@@ -1,0 +1,584 @@
+diff --git a/labs/К3440/Макаров Егор/lab2/bookings.html b/labs/К3440/Макаров Егор/lab2/bookings.html
+index b70a33b..29d279d 100644
+--- a/labs/К3440/Макаров Егор/lab2/bookings.html	
++++ b/labs/К3440/Макаров Егор/lab2/bookings.html	
+@@ -7,11 +7,11 @@
+   <title>Бронирования — TableTime</title>
+ </head>
+ <body data-page="bookings">
+-  <a class="visually-hidden-focusable position-absolute top-0 start-0 p-3 bg-white" href="#main-content">Перейти к содержимому</a>
++  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+   <header id="site-header"></header>
+-  <main id="main-content">
+-<section class="container py-5"><div class="d-flex flex-wrap gap-3 justify-content-between align-items-end mb-4"><div><p class="eyebrow">Учебная история</p><h1 class="section-title mb-0">Мои бронирования</h1></div><a class="btn btn-clay" href="index.html">Найти ресторан</a></div><div id="bookingNotice" class="alert alert-success" hidden role="status"></div><div id="bookingPageMessage" class="alert" hidden role="alert"></div><div class="notice mb-4"><strong>Важно:</strong> все даты, рестораны и подтверждения демонстрационные. Создание, изменение и отмена выполняются через локальный учебный API, а не в ресторане.</div><div id="bookingList"></div></section>
+-</main>
++  <main id="main-content" tabindex="-1">
++    <section class="container py-5" aria-labelledby="bookings-title"><div class="d-flex flex-wrap gap-3 justify-content-between align-items-end mb-4"><div><p class="eyebrow">Учебная история</p><h1 class="section-title mb-0" id="bookings-title">Мои бронирования</h1></div><a class="btn btn-clay" href="index.html">Найти ресторан</a></div><div id="bookingNotice" class="alert alert-success" hidden role="status" aria-atomic="true" tabindex="-1"></div><div id="bookingPageMessage" class="alert" hidden role="alert" aria-atomic="true"></div><div class="notice mb-4"><strong>Важно:</strong> все даты, рестораны и подтверждения демонстрационные. Создание, изменение и отмена выполняются через локальный учебный API, а не в ресторане.</div><div id="bookingList" role="region" aria-labelledby="bookings-title" aria-live="polite" aria-busy="true"></div></section>
++  </main>
+   <footer id="site-footer"></footer>
+   <script type="module" src="/src/app.js"></script>
+ </body>
+diff --git a/labs/К3440/Макаров Егор/lab2/index.html b/labs/К3440/Макаров Егор/lab2/index.html
+index c72eaaa..9a28b3b 100644
+--- a/labs/К3440/Макаров Егор/lab2/index.html	
++++ b/labs/К3440/Макаров Егор/lab2/index.html	
+@@ -7,13 +7,38 @@
+   <title>Рестораны — TableTime</title>
+ </head>
+ <body data-page="search">
+-  <a class="visually-hidden-focusable position-absolute top-0 start-0 p-3 bg-white" href="#main-content">Перейти к содержимому</a>
++  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+   <header id="site-header"></header>
+-  <main id="main-content">
+-<section class="hero"><div class="container"><p class="eyebrow mb-2">Санкт-Петербург · учебный сервис</p><h1 class="display-title mb-3">Столик для вечера, который хочется запомнить</h1><p class="lead mb-0 col-lg-7">Выбирайте демонстрационные рестораны по кухне, району и уровню цен. Данные загружаются через учебный HTTP API; реальные заявки не создаются.</p></div></section>
+-<section class="container"><div class="filter-panel p-3 p-md-4"><form id="filtersForm" aria-label="Фильтры ресторанов"><div class="row g-3 align-items-end"><div class="col-lg-3"><label class="form-label" for="filterQuery">Поиск</label><input class="form-control" id="filterQuery" name="query" type="search" placeholder="Название или особенность"></div><div class="col-sm-6 col-lg-2"><label class="form-label" for="filterCuisine">Кухня</label><select class="form-select" id="filterCuisine" name="cuisine"><option value="">Любая</option><option>Русская</option><option>Паназиатская</option><option>Итальянская</option><option>Европейская</option></select></div><div class="col-sm-6 col-lg-2"><label class="form-label" for="filterDistrict">Район</label><select class="form-select" id="filterDistrict" name="district"><option value="">Любой</option><option>Петроградский</option><option>Центральный</option><option>Василеостровский</option><option>Адмиралтейский</option></select></div><div class="col-sm-6 col-lg-2"><label class="form-label" for="filterPrice">Средний чек</label><select class="form-select" id="filterPrice" name="price"><option value="">Любой</option><option value="1">₽</option><option value="2">₽₽</option><option value="3">₽₽₽</option></select></div><div class="col-sm-6 col-lg-3 d-flex gap-2"><button class="btn btn-soft w-100" id="resetFilters" type="button">Сбросить</button></div></div></form></div></section>
+-<section class="container py-5"><div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4"><div><p class="eyebrow mb-1">Выбор редакции</p><h2 class="section-title mb-0">Рестораны для вашего вечера</h2></div><p class="lead-muted mb-0" id="resultCount" aria-live="polite"></p></div><div class="row g-4" id="restaurantResults"></div></section>
+-</main>
++  <main id="main-content" tabindex="-1">
++    <section class="hero" aria-labelledby="search-page-title">
++      <div class="container">
++        <p class="eyebrow mb-2">Санкт-Петербург · учебный сервис</p>
++        <h1 class="display-title mb-3" id="search-page-title">Столик для вечера, который хочется запомнить</h1>
++        <p class="lead mb-0 col-lg-7">Выбирайте демонстрационные рестораны по кухне, району и уровню цен. Данные загружаются через учебный HTTP API; реальные заявки не создаются.</p>
++      </div>
++    </section>
++    <section class="container" aria-label="Поиск ресторанов">
++      <div class="filter-panel p-3 p-md-4">
++        <form id="filtersForm" aria-describedby="filterHelp">
++          <p class="visually-hidden" id="filterHelp">Результаты обновляются после изменения условий поиска.</p>
++          <div class="row g-3 align-items-end">
++            <div class="col-lg-3"><label class="form-label" for="filterQuery">Поиск</label><input class="form-control" id="filterQuery" name="query" type="search" placeholder="Название или особенность"></div>
++            <div class="col-sm-6 col-lg-2"><label class="form-label" for="filterCuisine">Кухня</label><select class="form-select" id="filterCuisine" name="cuisine"><option value="">Любая</option><option>Русская</option><option>Паназиатская</option><option>Итальянская</option><option>Европейская</option></select></div>
++            <div class="col-sm-6 col-lg-2"><label class="form-label" for="filterDistrict">Район</label><select class="form-select" id="filterDistrict" name="district"><option value="">Любой</option><option>Петроградский</option><option>Центральный</option><option>Василеостровский</option><option>Адмиралтейский</option></select></div>
++            <div class="col-sm-6 col-lg-2"><label class="form-label" for="filterPrice">Средний чек</label><select class="form-select" id="filterPrice" name="price"><option value="">Любой</option><option value="1">₽</option><option value="2">₽₽</option><option value="3">₽₽₽</option></select></div>
++            <div class="col-sm-6 col-lg-3 d-flex gap-2"><button class="btn btn-soft w-100" id="resetFilters" type="button">Сбросить фильтры</button></div>
++          </div>
++        </form>
++      </div>
++    </section>
++    <section class="container py-5" aria-labelledby="results-title">
++      <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
++        <div><p class="eyebrow mb-1">Выбор редакции</p><h2 class="section-title mb-0" id="results-title">Рестораны для вашего вечера</h2></div>
++        <p class="lead-muted mb-0" id="resultCount" aria-live="polite" aria-atomic="true"></p>
++      </div>
++      <div class="row g-4" id="restaurantResults" role="region" aria-labelledby="results-title" aria-live="polite" aria-busy="true"></div>
++    </section>
++  </main>
+   <footer id="site-footer"></footer>
+   <script type="module" src="/src/app.js"></script>
+ </body>
+diff --git a/labs/К3440/Макаров Егор/lab2/login.html b/labs/К3440/Макаров Егор/lab2/login.html
+index 2cb9205..659ccd9 100644
+--- a/labs/К3440/Макаров Егор/lab2/login.html	
++++ b/labs/К3440/Макаров Егор/lab2/login.html	
+@@ -7,11 +7,19 @@
+   <title>Вход — TableTime</title>
+ </head>
+ <body data-page="login">
+-  <a class="visually-hidden-focusable position-absolute top-0 start-0 p-3 bg-white" href="#main-content">Перейти к содержимому</a>
++  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+   <header id="site-header"></header>
+-  <main id="main-content">
+-<section class="container auth-shell"><div class="row g-4 align-items-stretch w-100 justify-content-center"><div class="col-lg-5 d-none d-lg-block"><div class="auth-visual"><div><p class="eyebrow">TableTime</p><h1 class="section-title">Ваши планы — в одном спокойном месте</h1></div></div></div><div class="col-lg-5"><div class="auth-card"><p class="eyebrow">Учебная сессия</p><h1 class="section-title mb-2">Войти</h1><p class="lead-muted">Это локальная демонстрация с HTTP API. Не используйте реальные пароли или персональные данные.</p><div id="loginMessage" class="alert" hidden role="alert"></div><form id="loginForm" novalidate><div class="mb-3"><label class="form-label" for="loginEmail">E-mail</label><input class="form-control" id="loginEmail" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="mb-3"><label class="form-label" for="loginPassword">Пароль</label><input class="form-control" id="loginPassword" type="password" autocomplete="current-password" required></div><button class="btn btn-clay w-100" type="submit">Войти в учебный профиль</button></form><div class="notice small mt-4"><strong>Демо-доступ:</strong> demo@tabletime.local / учебный-доступ<br><button id="demoLogin" class="btn btn-link p-0 small">Подставить демо-данные</button></div><p class="mb-0 mt-4 small">Нет учебного профиля? <a href="register.html">Зарегистрироваться</a></p></div></div></div></section>
+-</main>
++  <main id="main-content" tabindex="-1">
++    <section class="container auth-shell" aria-labelledby="login-title">
++      <div class="row g-4 align-items-stretch w-100 justify-content-center">
++        <div class="col-lg-5 d-none d-lg-block"><div class="auth-visual"><div><p class="eyebrow">TableTime</p><h1 class="section-title">Ваши планы — в одном спокойном месте</h1></div></div></div>
++        <div class="col-lg-5"><div class="auth-card"><p class="eyebrow">Учебная сессия</p><h1 class="section-title mb-2" id="login-title">Войти</h1><p class="lead-muted">Это локальная демонстрация с HTTP API. Не используйте реальные пароли или персональные данные.</p><div id="loginMessage" class="alert" hidden role="alert" aria-atomic="true"></div>
++          <form id="loginForm"><div class="mb-3"><label class="form-label" for="loginEmail">E-mail <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><input class="form-control" id="loginEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="mb-3"><label class="form-label" for="loginPassword">Пароль <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><input class="form-control" id="loginPassword" name="password" type="password" autocomplete="current-password" required></div><button class="btn btn-clay w-100" type="submit">Войти в учебный профиль</button></form>
++          <div class="notice small mt-4"><strong>Демо-доступ:</strong> demo@tabletime.local / учебный-доступ<br><button id="demoLogin" class="btn btn-link p-0 small" type="button">Подставить демо-данные</button></div><p class="mb-0 mt-4 small">Нет учебного профиля? <a href="register.html">Зарегистрироваться</a></p>
++        </div></div>
++      </div>
++    </section>
++  </main>
+   <footer id="site-footer"></footer>
+   <script type="module" src="/src/app.js"></script>
+ </body>
+diff --git a/labs/К3440/Макаров Егор/lab2/package.json b/labs/К3440/Макаров Егор/lab2/package.json
+index 41fbeb5..4fb7860 100644
+--- a/labs/К3440/Макаров Егор/lab2/package.json	
++++ b/labs/К3440/Макаров Егор/lab2/package.json	
+@@ -12,7 +12,8 @@
+     "preview": "vite preview --host 0.0.0.0 --port 5172 --strictPort",
+     "reset-db": "node scripts/reset-db.mjs",
+     "test": "node --test tests/api.test.mjs",
+-    "test:e2e": "node --test tests/browser.e2e.test.mjs"
++    "test:e2e": "node --test tests/browser.e2e.test.mjs",
++    "test:a11y": "node --test tests/a11y.e2e.test.mjs"
+   },
+   "dependencies": {
+     "bcryptjs": "^3.0.2",
+diff --git a/labs/К3440/Макаров Егор/lab2/profile.html b/labs/К3440/Макаров Егор/lab2/profile.html
+index 0225a57..3cbe733 100644
+--- a/labs/К3440/Макаров Егор/lab2/profile.html	
++++ b/labs/К3440/Макаров Егор/lab2/profile.html	
+@@ -7,11 +7,11 @@
+   <title>Профиль — TableTime</title>
+ </head>
+ <body data-page="profile">
+-  <a class="visually-hidden-focusable position-absolute top-0 start-0 p-3 bg-white" href="#main-content">Перейти к содержимому</a>
++  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+   <header id="site-header"></header>
+-  <main id="main-content">
+-<section class="container py-5"><p class="eyebrow">Личный кабинет</p><h1 class="section-title mb-4">Профиль гостя</h1><div class="row g-4"><div class="col-lg-4"><aside class="profile-card p-4"><div class="d-flex align-items-center gap-3"><div class="avatar" id="avatarInitial" aria-hidden="true">Г</div><div><h2 class="h4 mb-1" id="profileName">Гость</h2><p class="meta mb-0" id="profileEmail">guest@tabletime.local</p></div></div><hr><a class="btn btn-clay w-100" href="bookings.html">Мои бронирования</a></aside></div><div class="col-lg-8"><section class="profile-card p-4 p-md-5"><div id="demoProfileNotice" class="notice mb-4" hidden><strong>Демо-режим.</strong> Этот профиль создан для показа интерфейса; его данные находятся только в локальном учебном API.</div><h2 class="h3 mb-1">Контактные данные</h2><p class="lead-muted">Имя сохраняется в учебном API. E-mail в этой работе менять нельзя.</p><div id="profileMessage" class="alert" hidden role="alert"></div><form id="profileForm" class="row g-3" novalidate><div class="col-md-6"><label class="form-label" for="profileFormName">Имя</label><input class="form-control" id="profileFormName" required minlength="2"></div><div class="col-md-6"><label class="form-label" for="profileFormEmail">E-mail</label><input class="form-control" id="profileFormEmail" type="email" disabled aria-describedby="profileEmailHint"><div id="profileEmailHint" class="form-text">E-mail нельзя менять в учебной сессии.</div></div><div class="col-12"><button class="btn btn-clay" type="submit">Сохранить изменения</button></div></form></section></div></div></section>
+-</main>
++  <main id="main-content" tabindex="-1">
++    <section class="container py-5" aria-labelledby="profile-title"><p class="eyebrow">Личный кабинет</p><h1 class="section-title mb-4" id="profile-title">Профиль гостя</h1><div class="row g-4"><div class="col-lg-4"><aside class="profile-card p-4" aria-label="Краткая информация о профиле"><div class="d-flex align-items-center gap-3"><div class="avatar" id="avatarInitial" aria-hidden="true">Г</div><div><h2 class="h4 mb-1" id="profileName">Гость</h2><p class="meta mb-0" id="profileEmail">guest@tabletime.local</p></div></div><hr><a class="btn btn-clay w-100" href="bookings.html">Мои бронирования</a></aside></div><div class="col-lg-8"><section class="profile-card p-4 p-md-5" aria-labelledby="contact-title"><div id="demoProfileNotice" class="notice mb-4" hidden role="status"><strong>Демо-режим.</strong> Этот профиль создан для показа интерфейса; его данные находятся только в локальном учебном API.</div><h2 class="h3 mb-1" id="contact-title">Контактные данные</h2><p class="lead-muted">Имя сохраняется в учебном API. E-mail в этой работе менять нельзя.</p><div id="profileMessage" class="alert" hidden role="alert" aria-atomic="true"></div><form id="profileForm" class="row g-3"><div class="col-md-6"><label class="form-label" for="profileFormName">Имя <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><input class="form-control" id="profileFormName" name="name" autocomplete="name" required minlength="2"></div><div class="col-md-6"><label class="form-label" for="profileFormEmail">E-mail</label><input class="form-control" id="profileFormEmail" type="email" disabled aria-describedby="profileEmailHint"><div id="profileEmailHint" class="form-text">E-mail нельзя менять в учебной сессии.</div></div><div class="col-12"><button class="btn btn-clay" type="submit">Сохранить изменения</button></div></form></section></div></div></section>
++  </main>
+   <footer id="site-footer"></footer>
+   <script type="module" src="/src/app.js"></script>
+ </body>
+diff --git a/labs/К3440/Макаров Егор/lab2/register.html b/labs/К3440/Макаров Егор/lab2/register.html
+index af49c4c..dea0b51 100644
+--- a/labs/К3440/Макаров Егор/lab2/register.html	
++++ b/labs/К3440/Макаров Егор/lab2/register.html	
+@@ -7,11 +7,18 @@
+   <title>Регистрация — TableTime</title>
+ </head>
+ <body data-page="register">
+-  <a class="visually-hidden-focusable position-absolute top-0 start-0 p-3 bg-white" href="#main-content">Перейти к содержимому</a>
++  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+   <header id="site-header"></header>
+-  <main id="main-content">
+-<section class="container auth-shell"><div class="row g-4 align-items-stretch w-100 justify-content-center"><div class="col-lg-5 order-lg-2 d-none d-lg-block"><div class="auth-visual"><div><p class="eyebrow">Новый профиль</p><h1 class="section-title">Сохраните планы на ужин</h1></div></div></div><div class="col-lg-5"><div class="auth-card"><p class="eyebrow">Учебная регистрация</p><h1 class="section-title mb-2">Создать профиль</h1><p class="lead-muted">Запись отправляется только в локальный учебный API. Не вводите реальные пароли или персональные данные.</p><div id="registerMessage" class="alert" hidden role="alert"></div><form id="registerForm" novalidate><div class="mb-3"><label class="form-label" for="registerName">Имя</label><input class="form-control" id="registerName" autocomplete="name" required minlength="2" placeholder="Как к вам обращаться"></div><div class="mb-3"><label class="form-label" for="registerEmail">Учебный e-mail</label><input class="form-control" id="registerEmail" type="email" autocomplete="email" required placeholder="student@example.com"></div><div class="mb-3"><label class="form-label" for="registerPassword">Учебный пароль</label><input class="form-control" id="registerPassword" type="password" autocomplete="new-password" required minlength="6"><p class="password-note mb-0 mt-1">От 6 символов; сервер хранит только bcrypt-хеш, а не сам пароль.</p></div><button class="btn btn-clay w-100" type="submit">Создать учебный профиль</button></form><p class="mb-0 mt-4 small">Уже есть профиль? <a href="login.html">Войти</a></p></div></div></div></section>
+-</main>
++  <main id="main-content" tabindex="-1">
++    <section class="container auth-shell" aria-labelledby="register-title">
++      <div class="row g-4 align-items-stretch w-100 justify-content-center">
++        <div class="col-lg-5 order-lg-2 d-none d-lg-block"><div class="auth-visual"><div><p class="eyebrow">Новый профиль</p><h1 class="section-title">Сохраните планы на ужин</h1></div></div></div>
++        <div class="col-lg-5"><div class="auth-card"><p class="eyebrow">Учебная регистрация</p><h1 class="section-title mb-2" id="register-title">Создать профиль</h1><p class="lead-muted">Запись отправляется только в локальный учебный API. Не вводите реальные пароли или персональные данные.</p><div id="registerMessage" class="alert" hidden role="alert" aria-atomic="true"></div>
++          <form id="registerForm"><div class="mb-3"><label class="form-label" for="registerName">Имя <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><input class="form-control" id="registerName" name="name" autocomplete="name" required minlength="2" placeholder="Как к вам обращаться"></div><div class="mb-3"><label class="form-label" for="registerEmail">Учебный e-mail <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><input class="form-control" id="registerEmail" name="email" type="email" autocomplete="email" required placeholder="student@example.com"></div><div class="mb-3"><label class="form-label" for="registerPassword">Учебный пароль <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><input class="form-control" id="registerPassword" name="password" type="password" autocomplete="new-password" required minlength="6" aria-describedby="registerPasswordHint"><p class="password-note mb-0 mt-1" id="registerPasswordHint">От 6 символов; сервер хранит только bcrypt-хеш, а не сам пароль.</p></div><button class="btn btn-clay w-100" type="submit">Создать учебный профиль</button></form><p class="mb-0 mt-4 small">Уже есть профиль? <a href="login.html">Войти</a></p>
++        </div></div>
++      </div>
++    </section>
++  </main>
+   <footer id="site-footer"></footer>
+   <script type="module" src="/src/app.js"></script>
+ </body>
+diff --git a/labs/К3440/Макаров Егор/lab2/restaurant.html b/labs/К3440/Макаров Егор/lab2/restaurant.html
+index db244e9..36f7852 100644
+--- a/labs/К3440/Макаров Егор/lab2/restaurant.html	
++++ b/labs/К3440/Макаров Егор/lab2/restaurant.html	
+@@ -7,11 +7,11 @@
+   <title>Ресторан — TableTime</title>
+ </head>
+ <body data-page="restaurant">
+-  <a class="visually-hidden-focusable position-absolute top-0 start-0 p-3 bg-white" href="#main-content">Перейти к содержимому</a>
++  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+   <header id="site-header"></header>
+-  <main id="main-content">
+-<section class="restaurant-hero" id="restaurantHero"><div class="container"><p class="eyebrow mb-2">Демонстрационная карточка ресторана</p><h1 class="display-title mb-2" id="restaurantName">Загружаем ресторан…</h1><p class="meta mb-3" id="restaurantMeta"></p><button class="btn btn-clay" id="detailReserve" type="button">Забронировать столик</button></div></section><section class="container py-5"><div id="restaurantLoadError" class="alert" hidden role="alert"></div><div class="row g-5"><div class="col-lg-7"><p class="eyebrow">О ресторане</p><h2 class="section-title">Сдержанно, тепло, по-настоящему вкусно</h2><p id="restaurantDescription" class="lead-muted"></p><p id="restaurantAddress" class="fw-semibold"></p><div id="restaurantTags" class="mb-4"></div><div class="row g-3 mb-5"><div class="col-sm-6"><img class="gallery-image" src="./assets/restaurant-bar-unsplash.jpg" alt="Интерьер ресторана с барной стойкой" loading="lazy"></div><div class="col-sm-6"><img class="gallery-image" src="./assets/luxury-interior-unsplash.jpg" alt="Зал ресторана в тёплом освещении" loading="lazy"></div></div><p class="eyebrow">Отзывы</p><h2 class="section-title mb-4">Впечатления гостей</h2><div id="restaurantReviews"></div></div><aside class="col-lg-5"><div class="detail-panel p-4 sticky-lg-top" style="top: 96px"><p class="eyebrow">Меню</p><h2 class="h3">Попробуйте сегодня</h2><div id="restaurantMenu"></div><a href="index.html" class="btn btn-soft w-100 mt-3">Вернуться к поиску</a></div></aside></div></section>
+-</main>
++  <main id="main-content" tabindex="-1">
++    <section class="restaurant-hero" id="restaurantHero" aria-labelledby="restaurantName"><div class="container"><p class="eyebrow mb-2">Демонстрационная карточка ресторана</p><h1 class="display-title mb-2" id="restaurantName">Загружаем ресторан…</h1><p class="meta mb-3" id="restaurantMeta" aria-live="polite"></p><button class="btn btn-clay" id="detailReserve" type="button">Забронировать столик</button></div></section><section class="container py-5"><div id="restaurantLoadError" class="alert" hidden role="alert" aria-atomic="true"></div><div class="row g-5"><div class="col-lg-7"><p class="eyebrow">О ресторане</p><h2 class="section-title">Сдержанно, тепло, по-настоящему вкусно</h2><p id="restaurantDescription" class="lead-muted"></p><p id="restaurantAddress" class="fw-semibold"></p><div id="restaurantTags" class="mb-4" aria-label="Особенности ресторана"></div><div class="row g-3 mb-5"><div class="col-sm-6"><img class="gallery-image" src="./assets/restaurant-bar-unsplash.jpg" alt="Интерьер ресторана с барной стойкой" loading="lazy"></div><div class="col-sm-6"><img class="gallery-image" src="./assets/luxury-interior-unsplash.jpg" alt="Зал ресторана в тёплом освещении" loading="lazy"></div></div><p class="eyebrow">Отзывы</p><h2 class="section-title mb-4" id="reviews-title">Впечатления гостей</h2><div id="restaurantReviews" role="region" aria-labelledby="reviews-title" aria-live="polite"></div></div><aside class="col-lg-5"><div class="detail-panel p-4 sticky-lg-top" style="top: 96px"><p class="eyebrow">Меню</p><h2 class="h3" id="menu-title">Попробуйте сегодня</h2><div id="restaurantMenu" role="region" aria-labelledby="menu-title" aria-live="polite"></div><a href="index.html" class="btn btn-soft w-100 mt-3">Вернуться к поиску</a></div></aside></div></section>
++  </main>
+   <footer id="site-footer"></footer>
+   <script type="module" src="/src/app.js"></script>
+ </body>
+diff --git a/labs/К3440/Макаров Егор/lab2/src/app.js b/labs/К3440/Макаров Егор/lab2/src/app.js
+index 24f8c99..76372e3 100644
+--- a/labs/К3440/Макаров Егор/lab2/src/app.js	
++++ b/labs/К3440/Макаров Егор/lab2/src/app.js	
+@@ -3,90 +3,141 @@ import { Modal } from 'bootstrap';
+ import { ApiError, api, authApi, bookingApi, clearSession, getSession, saveSession } from './api.js';
+ import './styles.css';
+ 
+-const $ = (s, p = document) => p.querySelector(s);
+-const $$ = (s, p = document) => [...p.querySelectorAll(s)];
++const $ = (selector, parent = document) => parent.querySelector(selector);
++const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector)];
+ let restaurants = [];
+ let editing = null;
+-const esc = (v = '') => String(v).replace(/[&<>'"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
+-const errText = (e) => e instanceof ApiError ? e.message : 'Непредвиденная ошибка интерфейса.';
+-const tomorrow = () => { const d = new Date(); d.setDate(d.getDate() + 1); return d.toISOString().slice(0, 10); };
++let modalReturnFocus = null;
++const esc = (value = '') => String(value).replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
++const errText = (error) => error instanceof ApiError ? error.message : 'Непредвиденная ошибка интерфейса.';
++const tomorrow = () => { const date = new Date(); date.setDate(date.getDate() + 1); return date.toISOString().slice(0, 10); };
+ 
+-function message(target, text, kind = 'danger') { const el = typeof target === 'string' ? $(target) : target; if (el) { el.className = `alert alert-${kind} py-2 mb-3`; el.textContent = text; el.hidden = false; } }
+-function clearMessage(target) { const el = typeof target === 'string' ? $(target) : target; if (el) el.hidden = true; }
+-function loading(text) { return `<div class="col-12"><div class="state-panel" role="status"><span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>${esc(text)}</div></div>`; }
+-function failure(text) { return `<div class="col-12"><div class="state-panel state-error" role="alert"><strong>Не удалось получить данные.</strong><br>${esc(text)}<br><button class="btn btn-outline-ink btn-sm mt-3 retry" type="button">Повторить</button></div></div>`; }
+-function empty(title) { return `<div class="col-12"><div class="empty-state"><h2 class="section-title fs-3">${esc(title)}</h2><p>Попробуйте изменить условия поиска или вернуться к списку ресторанов.</p></div></div>`; }
++function message(target, text, kind = 'danger') {
++  const element = typeof target === 'string' ? $(target) : target;
++  if (!element) return;
++  element.className = `alert alert-${kind} py-2 mb-3`;
++  element.textContent = text;
++  element.hidden = false;
++}
++function clearMessage(target) { const element = typeof target === 'string' ? $(target) : target; if (element) element.hidden = true; }
++function loading(text) { return `<div class="col-12"><div class="state-panel" role="status" aria-live="polite" aria-atomic="true"><span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span><span>${esc(text)}</span></div></div>`; }
++function failure(text, retryLabel = 'Повторить загрузку') { return `<div class="col-12"><div class="state-panel state-error" role="alert" aria-atomic="true"><strong>Не удалось получить данные.</strong><br>${esc(text)}<br><button class="btn btn-outline-ink btn-sm mt-3 retry" type="button" aria-label="${esc(retryLabel)}">Повторить</button></div></div>`; }
++function empty(title, text = 'Попробуйте изменить условия поиска или вернуться к списку ресторанов.') { return `<div class="col-12"><div class="empty-state"><h3 class="section-title fs-3">${esc(title)}</h3><p>${esc(text)}</p></div></div>`; }
+ function authenticated() { return Boolean(getSession()); }
+ function requireAuth() { if (!authenticated()) { location.href = `login.html?next=${encodeURIComponent(location.pathname.split('/').pop() || 'index.html')}`; return false; } return true; }
+ function saveUser(user) { const session = getSession(); if (session) saveSession({ ...session, user }); }
++function setBusy(element, value) { if (element) element.setAttribute('aria-busy', String(value)); }
++function prepareFormValidation(form) {
++  if (!form) return;
++  form.addEventListener('invalid', (event) => event.target.setAttribute('aria-invalid', 'true'), true);
++  form.addEventListener('input', (event) => { if (event.target.validity?.valid) event.target.removeAttribute('aria-invalid'); });
++  form.addEventListener('change', (event) => { if (event.target.validity?.valid) event.target.removeAttribute('aria-invalid'); });
++}
+ 
+ function nav(active) {
+   const user = getSession()?.user;
+-  return `<nav class="navbar navbar-expand-lg sticky-top" aria-label="Основная навигация"><div class="container py-2"><a class="brand" href="index.html">table<span class="brand-dot">time</span></a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="mainNav"><ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1"><li class="nav-item"><a class="nav-link ${active === 'search' ? 'active' : ''}" href="index.html">Рестораны</a></li><li class="nav-item"><a class="nav-link ${active === 'bookings' ? 'active' : ''}" href="bookings.html">Бронирования</a></li><li class="nav-item"><a class="nav-link ${active === 'profile' ? 'active' : ''}" href="profile.html">Профиль</a></li>${user ? `<li class="nav-item ms-lg-2"><span class="small text-secondary me-lg-2">${esc(user.name)}</span><button class="btn btn-sm btn-outline-ink" id="logoutButton">Выйти</button></li>` : '<li class="nav-item ms-lg-2"><a class="btn btn-sm btn-clay" href="login.html">Войти</a></li>'}</ul></div></div></nav>`;
++  const current = (page) => active === page ? ' aria-current="page"' : '';
++  return `<nav class="navbar navbar-expand-lg sticky-top" aria-label="Основная навигация"><div class="container py-2"><a class="brand" href="index.html" aria-label="TableTime, на главную">table<span class="brand-dot">time</span></a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню"><span class="navbar-toggler-icon" aria-hidden="true"></span></button><div class="collapse navbar-collapse" id="mainNav"><ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1"><li class="nav-item"><a class="nav-link${active === 'search' ? ' active' : ''}" href="index.html"${current('search')}>Рестораны</a></li><li class="nav-item"><a class="nav-link${active === 'bookings' ? ' active' : ''}" href="bookings.html"${current('bookings')}>Бронирования</a></li><li class="nav-item"><a class="nav-link${active === 'profile' ? ' active' : ''}" href="profile.html"${current('profile')}>Профиль</a></li>${user ? `<li class="nav-item ms-lg-2"><span class="small text-secondary me-lg-2">${esc(user.name)}</span><button class="btn btn-sm btn-outline-ink" id="logoutButton" type="button">Выйти</button></li>` : '<li class="nav-item ms-lg-2"><a class="btn btn-sm btn-clay" href="login.html">Войти</a></li>'}</ul></div></div></nav>`;
+ }
+ function shell() {
+   const page = document.body.dataset.page || '';
+   $('#site-header').innerHTML = nav(page);
+-  $('#site-footer').innerHTML = `<footer class="mt-5"><div class="container py-4"><div class="row g-3 align-items-center"><div class="col-md"><a class="brand text-decoration-none" href="index.html">table<span class="brand-dot">time</span></a><p class="small mb-0 mt-1">Учебный интерфейс бронирования. Рестораны, отзывы и брони — демонстрационные; API работает локально.</p></div><div class="col-md-auto small text-md-end"><a href="https://unsplash.com/license" target="_blank" rel="noreferrer">Фото: Unsplash License</a><br><span>ЛР2 · Макаров Егор · К3440</span></div></div></div></footer>`;
++  $('#site-footer').innerHTML = `<div class="container py-4"><div class="row g-3 align-items-center"><div class="col-md"><a class="brand text-decoration-none" href="index.html" aria-label="TableTime, на главную">table<span class="brand-dot">time</span></a><p class="small mb-0 mt-1">Учебный интерфейс бронирования. Рестораны, отзывы и брони — демонстрационные; API работает локально.</p></div><div class="col-md-auto small text-md-end"><a href="https://unsplash.com/license" target="_blank" rel="noreferrer">Фото: Unsplash License <span class="visually-hidden">(откроется в новой вкладке)</span></a><br><span>ЛР2 · Макаров Егор · К3440</span></div></div></div>`;
+   $('#logoutButton')?.addEventListener('click', () => { clearSession(); location.href = 'index.html'; });
+ }
+-function card(r) { return `<article class="restaurant-card"><img src="${esc(r.image)}" alt="Интерьер ресторана ${esc(r.name)}" loading="lazy"><div class="card-body d-flex flex-column"><div class="d-flex justify-content-between gap-2 align-items-start"><h2 class="mb-1">${esc(r.name)}</h2><span class="rating">★ ${esc(r.rating)}</span></div><p class="meta mb-2">${esc(r.cuisine)} · ${esc(r.district)} · ${esc(r.priceLabel)}</p><p class="mb-3">${esc(r.description)}</p><div class="mb-3">${r.tags.map((tag) => `<span class="tag">${esc(tag)}</span>`).join('')}</div><div class="mt-auto d-flex gap-2 flex-wrap"><button class="btn btn-clay btn-sm reserve" type="button" data-id="${esc(r.id)}">Забронировать</button><a class="btn btn-outline-ink btn-sm" href="restaurant.html?id=${encodeURIComponent(r.id)}">О ресторане</a></div></div></article>`; }
+-function reservationButtons(parent = document) { $$('.reserve', parent).forEach((b) => b.addEventListener('click', () => { if (requireAuth()) openModal(restaurants.find((r) => r.id === b.dataset.id)); })); }
++function card(restaurant) {
++  const headingId = `restaurant-${esc(restaurant.id)}-title`;
++  return `<article class="restaurant-card" aria-labelledby="${headingId}"><img src="${esc(restaurant.image)}" alt="Интерьер ресторана ${esc(restaurant.name)}" loading="lazy"><div class="card-body d-flex flex-column"><div class="d-flex justify-content-between gap-2 align-items-start"><h3 class="mb-1" id="${headingId}">${esc(restaurant.name)}</h3><span class="rating" aria-label="Рейтинг: ${esc(restaurant.rating)} из 5"><span aria-hidden="true">★</span> ${esc(restaurant.rating)}</span></div><p class="meta mb-2">${esc(restaurant.cuisine)} · ${esc(restaurant.district)} · ${esc(restaurant.priceLabel)}</p><p class="mb-3">${esc(restaurant.description)}</p><div class="mb-3" aria-label="Особенности: ${esc(restaurant.tags.join(', '))}">${restaurant.tags.map((tag) => `<span class="tag" aria-hidden="true">${esc(tag)}</span>`).join('')}</div><div class="mt-auto d-flex gap-2 flex-wrap"><button class="btn btn-clay btn-sm reserve" type="button" data-id="${esc(restaurant.id)}">Забронировать в ${esc(restaurant.name)}</button><a class="btn btn-outline-ink btn-sm" href="restaurant.html?id=${encodeURIComponent(restaurant.id)}">О ресторане ${esc(restaurant.name)}</a></div></div></article>`;
++}
++function reservationButtons(parent = document) { $$('.reserve', parent).forEach((button) => button.addEventListener('click', () => { if (requireAuth()) openModal(restaurants.find((restaurant) => restaurant.id === button.dataset.id)); })); }
+ 
+-function modalHtml() { return `<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalTitle" aria-describedby="bookingModalHelp"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h1 class="modal-title fs-5" id="bookingModalTitle">Забронировать столик</h1><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button></div><form id="bookingForm" novalidate><div class="modal-body"><p id="bookingModalHelp" class="text-secondary small">Учебная запись сохранится в локальном JSON Server. Ресторан её не получит.</p><div id="bookingFormMessage" class="alert" hidden role="alert"></div><p class="fw-bold mb-3" id="bookingRestaurantName"></p><input id="bookingRestaurantId" type="hidden"><div class="row g-3"><div class="col-sm-6"><label class="form-label" for="bookingDate">Дата</label><input class="form-control" id="bookingDate" type="date" required></div><div class="col-sm-6"><label class="form-label" for="bookingTime">Время</label><select class="form-select" id="bookingTime" required><option value="">Выберите время</option><option>18:00</option><option>19:00</option><option>20:00</option><option>21:00</option></select></div><div class="col-12"><label class="form-label" for="bookingGuests">Гостей</label><select class="form-select" id="bookingGuests" required><option value="">Выберите количество</option>${[1,2,3,4,5,6,7,8].map((n) => `<option value="${n}">${n} ${n === 1 ? 'гость' : 'гостей'}</option>`).join('')}</select></div><div class="col-12"><label class="form-label" for="bookingComment">Комментарий <span class="text-secondary fw-normal">необязательно</span></label><input class="form-control" id="bookingComment" maxlength="200" placeholder="Например, нужен детский стул"></div></div></div><div class="modal-footer"><button type="button" class="btn btn-outline-ink" data-bs-dismiss="modal">Отмена</button><button type="submit" class="btn btn-clay" id="bookingSubmit">Подтвердить бронь</button></div></form></div></div></div>`; }
++function modalHtml() { return `<div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle" aria-describedby="bookingModalHelp"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h2 class="modal-title fs-5" id="bookingModalTitle">Забронировать столик</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть форму бронирования"></button></div><form id="bookingForm"><div class="modal-body"><p id="bookingModalHelp" class="text-secondary small">Учебная запись сохранится в локальном JSON Server. Ресторан её не получит.</p><div id="bookingFormMessage" class="alert" hidden role="alert" aria-atomic="true"></div><p class="fw-bold mb-3" id="bookingRestaurantName"></p><input id="bookingRestaurantId" type="hidden"><div class="row g-3"><div class="col-sm-6"><label class="form-label" for="bookingDate">Дата <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><input class="form-control" id="bookingDate" name="date" type="date" required></div><div class="col-sm-6"><label class="form-label" for="bookingTime">Время <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><select class="form-select" id="bookingTime" name="time" required><option value="">Выберите время</option><option>18:00</option><option>19:00</option><option>20:00</option><option>21:00</option></select></div><div class="col-12"><label class="form-label" for="bookingGuests">Гостей <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><select class="form-select" id="bookingGuests" name="guests" required><option value="">Выберите количество</option>${[1, 2, 3, 4, 5, 6, 7, 8].map((number) => `<option value="${number}">${number} ${number === 1 ? 'гость' : 'гостей'}</option>`).join('')}</select></div><div class="col-12"><label class="form-label" for="bookingComment">Комментарий <span class="text-secondary fw-normal">(необязательно)</span></label><input class="form-control" id="bookingComment" name="comment" maxlength="200" placeholder="Например, нужен детский стул"></div></div></div><div class="modal-footer"><button type="button" class="btn btn-outline-ink" data-bs-dismiss="modal">Отмена</button><button type="submit" class="btn btn-clay" id="bookingSubmit">Подтвердить бронь</button></div></form></div></div></div>`; }
+ function initModal() {
+   if ($('#bookingModal')) return;
+   document.body.insertAdjacentHTML('beforeend', modalHtml());
+   const modal = $('#bookingModal');
++  prepareFormValidation($('#bookingForm'));
+   modal.addEventListener('shown.bs.modal', () => $('#bookingDate').focus());
++  modal.addEventListener('hidden.bs.modal', () => {
++    const returnTarget = modalReturnFocus;
++    modalReturnFocus = null;
++    requestAnimationFrame(() => requestAnimationFrame(() => returnTarget?.focus()));
++  });
+   $('#bookingForm').addEventListener('submit', async (event) => {
+     event.preventDefault();
+     const body = { restaurantId: $('#bookingRestaurantId').value, date: $('#bookingDate').value, time: $('#bookingTime').value, guests: Number($('#bookingGuests').value), comment: $('#bookingComment').value.trim() };
+     if (!body.restaurantId || !body.date || !body.time || !body.guests) return message('#bookingFormMessage', 'Заполните дату, время и количество гостей.');
+     const button = $('#bookingSubmit'); button.disabled = true; clearMessage('#bookingFormMessage');
+     try { if (editing) await bookingApi.update(editing.id, body); else await bookingApi.create(body); Modal.getOrCreateInstance(modal).hide(); location.href = `bookings.html?${editing ? 'updated' : 'created'}=1`; }
+-    catch (e) { message('#bookingFormMessage', errText(e)); if (e.status === 401) setTimeout(requireAuth, 300); }
++    catch (error) { message('#bookingFormMessage', errText(error)); if (error.status === 401) setTimeout(requireAuth, 300); }
+     finally { button.disabled = false; }
+   });
+ }
+ function openModal(restaurant, booking = null) {
+-  initModal(); editing = booking; $('#bookingModalTitle').textContent = booking ? 'Изменить бронь' : 'Забронировать столик'; $('#bookingSubmit').textContent = booking ? 'Сохранить изменения' : 'Подтвердить бронь'; $('#bookingRestaurantName').textContent = restaurant?.name || 'Выбранный ресторан'; $('#bookingRestaurantId').value = booking?.restaurantId || restaurant?.id || ''; $('#bookingDate').min = tomorrow(); $('#bookingDate').value = booking?.date || ''; $('#bookingTime').value = booking?.time || ''; $('#bookingGuests').value = booking?.guests || ''; $('#bookingComment').value = booking?.comment || ''; clearMessage('#bookingFormMessage'); Modal.getOrCreateInstance($('#bookingModal')).show();
++  modalReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
++  initModal(); editing = booking;
++  $('#bookingModalTitle').textContent = booking ? 'Изменить бронь' : 'Забронировать столик';
++  $('#bookingSubmit').textContent = booking ? 'Сохранить изменения' : 'Подтвердить бронь';
++  $('#bookingRestaurantName').textContent = restaurant?.name || 'Выбранный ресторан';
++  $('#bookingRestaurantId').value = booking?.restaurantId || restaurant?.id || '';
++  $('#bookingDate').min = tomorrow(); $('#bookingDate').value = booking?.date || '';
++  $('#bookingTime').value = booking?.time || ''; $('#bookingGuests').value = booking?.guests || ''; $('#bookingComment').value = booking?.comment || '';
++  $$('#bookingForm [aria-invalid]').forEach((field) => field.removeAttribute('aria-invalid'));
++  clearMessage('#bookingFormMessage'); Modal.getOrCreateInstance($('#bookingModal')).show();
+ }
+ 
+ async function search() {
+-  const form = $('#filtersForm'), out = $('#restaurantResults'), count = $('#resultCount');
++  const form = $('#filtersForm'), output = $('#restaurantResults'), count = $('#resultCount');
+   const render = () => {
+-    const f = Object.fromEntries(new FormData(form).entries()), q = (f.query || '').trim().toLowerCase();
+-    const list = restaurants.filter((r) => (!q || `${r.name} ${r.cuisine} ${r.district} ${r.tags.join(' ')}`.toLowerCase().includes(q)) && (!f.cuisine || r.cuisine === f.cuisine) && (!f.district || r.district === f.district) && (!f.price || String(r.price) === f.price));
+-    count.textContent = `Найдено: ${list.length}`; out.innerHTML = list.length ? list.map((r) => `<div class="col-md-6">${card(r)}</div>`).join('') : empty('Ничего не найдено'); reservationButtons(out);
++    const filters = Object.fromEntries(new FormData(form).entries()), query = (filters.query || '').trim().toLowerCase();
++    const list = restaurants.filter((restaurant) => (!query || `${restaurant.name} ${restaurant.cuisine} ${restaurant.district} ${restaurant.tags.join(' ')}`.toLowerCase().includes(query)) && (!filters.cuisine || restaurant.cuisine === filters.cuisine) && (!filters.district || restaurant.district === filters.district) && (!filters.price || String(restaurant.price) === filters.price));
++    count.textContent = `Найдено: ${list.length}`; output.innerHTML = list.length ? list.map((restaurant) => `<div class="col-md-6">${card(restaurant)}</div>`).join('') : empty('Ничего не найдено'); reservationButtons(output); setBusy(output, false);
+   };
+-  const load = async () => { out.innerHTML = loading('Загружаем демонстрационные рестораны…'); try { restaurants = await api('/restaurants'); render(); } catch (e) { out.innerHTML = failure(errText(e)); $('.retry', out)?.addEventListener('click', load); } };
++  const load = async () => { setBusy(output, true); output.innerHTML = loading('Загружаем демонстрационные рестораны…'); try { restaurants = await api('/restaurants'); render(); } catch (error) { output.innerHTML = failure(errText(error), 'Повторить загрузку списка ресторанов'); setBusy(output, false); $('.retry', output)?.addEventListener('click', load); } };
+   form.addEventListener('input', render); form.addEventListener('change', render); $('#resetFilters').addEventListener('click', () => { form.reset(); render(); }); await load();
+ }
+ async function login() {
+   if (authenticated()) { location.href = 'profile.html'; return; }
+-  $('#demoLogin').addEventListener('click', () => { $('#loginEmail').value = 'demo@tabletime.local'; $('#loginPassword').value = 'учебный-доступ'; });
+-  $('#loginForm').addEventListener('submit', async (e) => { e.preventDefault(); clearMessage('#loginMessage'); const b = $('#loginForm button[type="submit"]'); b.disabled = true; try { saveSession(await authApi.login($('#loginEmail').value.trim(), $('#loginPassword').value)); const next = new URLSearchParams(location.search).get('next'); location.href = next && /^[\w-]+\.html$/.test(next) ? next : 'profile.html'; } catch (error) { message('#loginMessage', errText(error)); } finally { b.disabled = false; } });
++  const form = $('#loginForm'); prepareFormValidation(form);
++  $('#demoLogin').addEventListener('click', () => { $('#loginEmail').value = 'demo@tabletime.local'; $('#loginPassword').value = 'учебный-доступ'; $('#loginEmail').removeAttribute('aria-invalid'); $('#loginPassword').removeAttribute('aria-invalid'); });
++  form.addEventListener('submit', async (event) => { event.preventDefault(); clearMessage('#loginMessage'); const button = $('#loginForm button[type="submit"]'); button.disabled = true; try { saveSession(await authApi.login($('#loginEmail').value.trim(), $('#loginPassword').value)); const next = new URLSearchParams(location.search).get('next'); location.href = next && /^[\w-]+\.html$/.test(next) ? next : 'profile.html'; } catch (error) { message('#loginMessage', errText(error)); } finally { button.disabled = false; } });
+ }
+ async function register() {
+   if (authenticated()) { location.href = 'profile.html'; return; }
+-  $('#registerForm').addEventListener('submit', async (e) => { e.preventDefault(); clearMessage('#registerMessage'); const b = $('#registerForm button[type="submit"]'); b.disabled = true; try { saveSession(await authApi.register($('#registerName').value.trim(), $('#registerEmail').value.trim(), $('#registerPassword').value)); location.href = 'profile.html'; } catch (error) { message('#registerMessage', errText(error)); } finally { b.disabled = false; } });
++  const form = $('#registerForm'); prepareFormValidation(form);
++  form.addEventListener('submit', async (event) => { event.preventDefault(); clearMessage('#registerMessage'); const button = $('#registerForm button[type="submit"]'); button.disabled = true; try { saveSession(await authApi.register($('#registerName').value.trim(), $('#registerEmail').value.trim(), $('#registerPassword').value)); location.href = 'profile.html'; } catch (error) { message('#registerMessage', errText(error)); } finally { button.disabled = false; } });
+ }
+ async function privateUser() { if (!requireAuth()) return null; try { const { user } = await authApi.me(); saveUser(user); shell(); return user; } catch { clearSession(); requireAuth(); return null; } }
+ async function profile() {
+   const user = await privateUser(); if (!user) return;
+   $('#profileName').textContent = user.name; $('#profileEmail').textContent = user.email; $('#avatarInitial').textContent = user.name[0].toUpperCase(); $('#profileFormName').value = user.name; $('#profileFormEmail').value = user.email; if (user.isDemo) $('#demoProfileNotice').hidden = false;
+-  $('#profileForm').addEventListener('submit', async (e) => { e.preventDefault(); try { const { user: updated } = await authApi.update($('#profileFormName').value.trim()); saveUser(updated); $('#profileName').textContent = updated.name; $('#avatarInitial').textContent = updated.name[0].toUpperCase(); shell(); message('#profileMessage', 'Профиль сохранён в учебном API.', 'success'); } catch (error) { message('#profileMessage', errText(error)); } });
++  const form = $('#profileForm'); prepareFormValidation(form);
++  form.addEventListener('submit', async (event) => { event.preventDefault(); try { const { user: updated } = await authApi.update($('#profileFormName').value.trim()); saveUser(updated); $('#profileName').textContent = updated.name; $('#avatarInitial').textContent = updated.name[0].toUpperCase(); shell(); message('#profileMessage', 'Профиль сохранён в учебном API.', 'success'); } catch (error) { message('#profileMessage', errText(error)); } });
+ }
+ async function restaurant() {
+   const id = new URLSearchParams(location.search).get('id') || 'baltic-table';
+-  try { const [r, menu, reviews] = await Promise.all([api(`/restaurants/${encodeURIComponent(id)}`), api(`/menus?restaurantId=${encodeURIComponent(id)}`), api(`/reviews?restaurantId=${encodeURIComponent(id)}`)]); restaurants = [r]; document.title = `${r.name} — TableTime`; $('#restaurantHero').style.backgroundImage = `linear-gradient(0deg,rgba(26,22,19,.76),rgba(26,22,19,.08)),url('${r.image}')`; $('#restaurantName').textContent = r.name; $('#restaurantMeta').textContent = `${r.cuisine} · ${r.district} · ${r.priceLabel} · ★ ${r.rating}`; $('#restaurantAddress').textContent = `${r.address}, ${r.metro}`; $('#restaurantDescription').textContent = r.description; $('#restaurantTags').innerHTML = r.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join(''); $('#restaurantMenu').innerHTML = menu.length ? menu.map((m) => `<div class="menu-row d-flex gap-3 justify-content-between"><div><strong>${esc(m.name)}</strong><div class="meta">${esc(m.description)}</div></div><strong>${esc(m.price)}</strong></div>`).join('') : '<p class="meta">Меню пока не добавлено.</p>'; $('#restaurantReviews').innerHTML = reviews.length ? reviews.map((v) => `<article class="review mb-4"><div class="d-flex justify-content-between"><strong>${esc(v.author)}</strong><span class="rating">${'★'.repeat(Number(v.rating))}</span></div><p class="mb-0">${esc(v.text)}</p></article>`).join('') : '<p class="meta">Отзывов пока нет.</p>'; $('#detailReserve').addEventListener('click', () => { if (requireAuth()) openModal(r); }); }
+-  catch (e) { $('#restaurantName').textContent = 'Не удалось загрузить ресторан'; $('#restaurantMeta').textContent = errText(e); $('#detailReserve').hidden = true; message('#restaurantLoadError', errText(e)); }
++  try {
++    const [restaurant, menu, reviews] = await Promise.all([api(`/restaurants/${encodeURIComponent(id)}`), api(`/menus?restaurantId=${encodeURIComponent(id)}`), api(`/reviews?restaurantId=${encodeURIComponent(id)}`)]);
++    restaurants = [restaurant]; document.title = `${restaurant.name} — TableTime`; $('#restaurantHero').style.backgroundImage = `linear-gradient(0deg,rgba(26,22,19,.76),rgba(26,22,19,.08)),url('${restaurant.image}')`; $('#restaurantName').textContent = restaurant.name; $('#restaurantMeta').textContent = `${restaurant.cuisine} · ${restaurant.district} · ${restaurant.priceLabel} · рейтинг ${restaurant.rating} из 5`; $('#restaurantAddress').textContent = `${restaurant.address}, ${restaurant.metro}`; $('#restaurantDescription').textContent = restaurant.description; $('#restaurantTags').innerHTML = restaurant.tags.map((tag) => `<span class="tag">${esc(tag)}</span>`).join('');
++    $('#restaurantMenu').innerHTML = menu.length ? menu.map((item) => `<div class="menu-row d-flex gap-3 justify-content-between"><div><strong>${esc(item.name)}</strong><div class="meta">${esc(item.description)}</div></div><strong>${esc(item.price)}</strong></div>`).join('') : '<p class="meta">Меню пока не добавлено.</p>';
++    $('#restaurantReviews').innerHTML = reviews.length ? reviews.map((review) => `<article class="review mb-4"><div class="d-flex justify-content-between"><h3 class="h5 mb-1">${esc(review.author)}</h3><span class="rating" aria-label="Оценка: ${esc(review.rating)} из 5"><span aria-hidden="true">${'★'.repeat(Number(review.rating))}</span></span></div><p class="mb-0">${esc(review.text)}</p></article>`).join('') : '<p class="meta">Отзывов пока нет.</p>';
++    $('#detailReserve').addEventListener('click', () => { if (requireAuth()) openModal(restaurant); });
++  } catch (error) { $('#restaurantName').textContent = 'Не удалось загрузить ресторан'; $('#restaurantMeta').textContent = errText(error); $('#detailReserve').hidden = true; message('#restaurantLoadError', errText(error)); }
+ }
+ async function bookings() {
+-  if (!(await privateUser())) return; const out = $('#bookingList'), params = new URLSearchParams(location.search);
+-  if (params.has('created') || params.has('updated')) { $('#bookingNotice').textContent = params.has('created') ? 'Бронь сохранена в учебном API.' : 'Изменения брони сохранены в учебном API.'; $('#bookingNotice').hidden = false; }
+-  const load = async () => { out.innerHTML = loading('Загружаем ваши бронирования…'); try { const [items, all] = await Promise.all([bookingApi.list(), api('/restaurants')]); restaurants = all; const byId = new Map(all.map((r) => [r.id, r])); out.innerHTML = items.length ? items.map((b) => { const r = byId.get(b.restaurantId); return `<article class="booking-item mb-3"><div class="row align-items-center g-3"><div class="col-md"><span class="badge booking-status mb-2">Подтверждено учебным API</span><h2 class="h4 mb-1">${esc(r?.name || 'Ресторан удалён')}</h2><p class="mb-0 meta">${esc(b.date.split('-').reverse().join('.'))} · ${esc(b.time)} · ${b.guests} гостей<br>${esc(r?.address || 'Адрес недоступен')}</p>${b.comment ? `<p class="small mt-2 mb-0">Комментарий: ${esc(b.comment)}</p>` : ''}</div><div class="col-md-auto d-flex gap-2"><button class="btn btn-outline-ink btn-sm edit" data-id="${b.id}">Изменить</button><button class="btn btn-outline-danger btn-sm cancel" data-id="${b.id}">Отменить</button></div></div></article>`; }).join('') : `<div class="empty-state"><h2 class="section-title fs-3">Пока нет бронирований</h2><p>Выберите ресторан и создайте первую учебную бронь.</p><a class="btn btn-clay" href="index.html">Найти ресторан</a></div>`; $$('.edit', out).forEach((x) => x.addEventListener('click', () => { const b = items.find((i) => i.id === x.dataset.id); openModal(byId.get(b.restaurantId), b); })); $$('.cancel', out).forEach((x) => x.addEventListener('click', async () => { if (!confirm('Отменить эту учебную бронь?')) return; x.disabled = true; try { await bookingApi.remove(x.dataset.id); load(); } catch (e) { message('#bookingPageMessage', errText(e)); x.disabled = false; } })); } catch (e) { out.innerHTML = failure(errText(e)); $('.retry', out)?.addEventListener('click', load); } };
++  if (!(await privateUser())) return;
++  const output = $('#bookingList'), params = new URLSearchParams(location.search);
++  if (params.has('created') || params.has('updated')) { const notice = $('#bookingNotice'); notice.textContent = params.has('created') ? 'Бронь сохранена в учебном API.' : 'Изменения брони сохранены в учебном API.'; notice.hidden = false; }
++  const load = async () => {
++    setBusy(output, true); output.innerHTML = loading('Загружаем ваши бронирования…');
++    try {
++      const [items, all] = await Promise.all([bookingApi.list(), api('/restaurants')]); restaurants = all; const byId = new Map(all.map((restaurant) => [restaurant.id, restaurant]));
++      output.innerHTML = items.length ? items.map((booking) => { const restaurant = byId.get(booking.restaurantId); const name = restaurant?.name || 'Ресторан удалён'; return `<article class="booking-item mb-3" aria-label="Бронирование: ${esc(name)}, ${esc(booking.date)} в ${esc(booking.time)}"><div class="row align-items-center g-3"><div class="col-md"><span class="badge booking-status mb-2">Подтверждено учебным API</span><h2 class="h4 mb-1">${esc(name)}</h2><p class="mb-0 meta">${esc(booking.date.split('-').reverse().join('.'))} · ${esc(booking.time)} · ${booking.guests} гостей<br>${esc(restaurant?.address || 'Адрес недоступен')}</p>${booking.comment ? `<p class="small mt-2 mb-0">Комментарий: ${esc(booking.comment)}</p>` : ''}</div><div class="col-md-auto d-flex gap-2"><button class="btn btn-outline-ink btn-sm edit" type="button" data-id="${booking.id}" aria-label="Изменить бронь в ресторане ${esc(name)}">Изменить</button><button class="btn btn-outline-danger btn-sm cancel" type="button" data-id="${booking.id}" aria-label="Отменить бронь в ресторане ${esc(name)}">Отменить</button></div></div></article>`; }).join('') : `<div class="empty-state"><h2 class="section-title fs-3">Пока нет бронирований</h2><p>Выберите ресторан и создайте первую учебную бронь.</p><a class="btn btn-clay" href="index.html">Найти ресторан</a></div>`;
++      $$('.edit', output).forEach((button) => button.addEventListener('click', () => { const booking = items.find((item) => item.id === button.dataset.id); openModal(byId.get(booking.restaurantId), booking); }));
++      $$('.cancel', output).forEach((button) => button.addEventListener('click', async () => { if (!confirm('Отменить эту учебную бронь?')) return; button.disabled = true; try { await bookingApi.remove(button.dataset.id); load(); } catch (error) { message('#bookingPageMessage', errText(error)); button.disabled = false; } }));
++      setBusy(output, false);
++    } catch (error) { output.innerHTML = failure(errText(error), 'Повторить загрузку бронирований'); setBusy(output, false); $('.retry', output)?.addEventListener('click', load); }
++  };
+   await load();
+ }
+ 
+diff --git a/labs/К3440/Макаров Егор/lab2/src/styles.css b/labs/К3440/Макаров Егор/lab2/src/styles.css
+index 53a094c..2105b24 100644
+--- a/labs/К3440/Макаров Егор/lab2/src/styles.css	
++++ b/labs/К3440/Макаров Егор/lab2/src/styles.css	
+@@ -2,13 +2,14 @@
+ 
+ :root {
+   --tt-ink: #292523;
+-  --tt-muted: #726a65;
++  --tt-muted: #625a55;
+   --tt-milk: #f8f3eb;
+   --tt-paper: #fffdfa;
+   --tt-clay: #a94e38;
+-  --tt-clay-deep: #823826;
++  --tt-clay-deep: #71301f;
++  --tt-focus: #7a321f;
+   --tt-sage: #dce5d8;
+-  --tt-line: #e7ddd3;
++  --tt-line: #d5c8bc;
+   --tt-shadow: 0 16px 36px rgba(63, 45, 34, .12);
+ }
+ 
+@@ -17,19 +18,23 @@ html { scroll-behavior: smooth; }
+ body { background: var(--tt-milk); color: var(--tt-ink); font-family: Inter, Arial, sans-serif; line-height: 1.55; }
+ main { min-height: calc(100vh - 206px); }
+ a { color: inherit; }
+-a:hover { color: var(--tt-clay); }
+-:focus-visible { outline: 3px solid #d48365; outline-offset: 3px; }
++a:not(.btn):not(.brand):not(.nav-link) { text-decoration-thickness: .1em; text-underline-offset: .16em; }
++a:hover { color: var(--tt-clay-deep); }
++:focus-visible { outline: 3px solid var(--tt-focus); outline-offset: 3px; box-shadow: 0 0 0 5px var(--tt-paper); }
++.skip-link { background: var(--tt-paper); border: 2px solid var(--tt-focus); border-radius: 0 0 .5rem .5rem; color: var(--tt-ink); font-weight: 700; left: 1rem; padding: .65rem .9rem; position: fixed; top: 0; transform: translateY(-130%); transition: transform .15s ease; z-index: 2000; }
++.skip-link:focus { color: var(--tt-ink); transform: translateY(0); }
+ 
+ .brand { font-family: Georgia, 'Times New Roman', serif; font-size: 1.65rem; font-weight: 700; letter-spacing: -.04em; text-decoration: none; }
+ .brand .brand-dot { color: var(--tt-clay); }
+-.navbar { background: rgba(255, 253, 250, .94); border-bottom: 1px solid var(--tt-line); }
+-.navbar .nav-link { color: var(--tt-ink); font-weight: 600; }
+-.navbar .nav-link.active, .navbar .nav-link:hover { color: var(--tt-clay); }
+-.badge-demo { background: var(--tt-sage); color: #3d573a; border: 1px solid #bfceb9; font-size: .72rem; font-weight: 700; letter-spacing: .03em; }
++.navbar { background: rgba(255, 253, 250, .97); border-bottom: 1px solid var(--tt-line); }
++.navbar .nav-link { color: var(--tt-ink); font-weight: 700; }
++.navbar .nav-link.active, .navbar .nav-link:hover { color: var(--tt-clay-deep); text-decoration: underline; text-decoration-thickness: .12em; text-underline-offset: .28em; }
++.navbar-toggler { border-color: #6a5c54; }
++.badge-demo { background: var(--tt-sage); color: #29462c; border: 1px solid #95ae91; font-size: .72rem; font-weight: 700; letter-spacing: .03em; }
+ 
+-.hero { background: linear-gradient(105deg, rgba(32, 27, 24, .82), rgba(32, 27, 24, .36)), url('../assets/fine-dining-unsplash.jpg') center/cover; min-height: 360px; display: grid; align-items: end; padding: 4rem 0; color: white; }
+-.eyebrow { color: var(--tt-clay); text-transform: uppercase; font-size: .75rem; letter-spacing: .13em; font-weight: 800; }
+-.hero .eyebrow { color: #ffd6bc; }
++.hero { background: linear-gradient(105deg, rgba(32, 27, 24, .86), rgba(32, 27, 24, .48)), url('../assets/fine-dining-unsplash.jpg') center/cover; min-height: 360px; display: grid; align-items: end; padding: 4rem 0; color: white; }
++.eyebrow { color: var(--tt-clay-deep); text-transform: uppercase; font-size: .75rem; letter-spacing: .13em; font-weight: 800; }
++.hero .eyebrow { color: #ffe4d3; }
+ .display-title { font: 700 clamp(2.25rem, 5vw, 4.4rem)/.98 Georgia, 'Times New Roman', serif; letter-spacing: -.05em; max-width: 730px; }
+ .section-title { font: 700 clamp(1.85rem, 3.5vw, 3rem)/1.05 Georgia, 'Times New Roman', serif; letter-spacing: -.035em; }
+ .lead-muted { color: var(--tt-muted); }
+@@ -37,28 +42,30 @@ a:hover { color: var(--tt-clay); }
+ .filter-panel, .profile-card, .booking-card, .detail-panel, .auth-card { background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 18px; box-shadow: var(--tt-shadow); }
+ .filter-panel { margin-top: -30px; position: relative; z-index: 2; }
+ .form-label { font-size: .84rem; font-weight: 700; margin-bottom: .35rem; }
+-.form-control, .form-select { background: #fffdfa; border-color: #d7cbc0; min-height: 46px; }
+-.form-control:focus, .form-select:focus { border-color: var(--tt-clay); box-shadow: 0 0 0 .25rem rgba(169, 78, 56, .16); }
++.form-control, .form-select { background: #fffdfa; border-color: #aa9a8d; min-height: 46px; }
++.form-control:focus, .form-select:focus { border-color: var(--tt-clay-deep); box-shadow: 0 0 0 .25rem rgba(122, 50, 31, .22); }
++.form-control[aria-invalid="true"], .form-select[aria-invalid="true"] { border-color: #9b241a; box-shadow: 0 0 0 .2rem rgba(155, 36, 26, .18); }
+ .btn-clay { --bs-btn-color: #fff; --bs-btn-bg: var(--tt-clay); --bs-btn-border-color: var(--tt-clay); --bs-btn-hover-color: #fff; --bs-btn-hover-bg: var(--tt-clay-deep); --bs-btn-hover-border-color: var(--tt-clay-deep); --bs-btn-active-bg: var(--tt-clay-deep); --bs-btn-active-border-color: var(--tt-clay-deep); font-weight: 700; }
+-.btn-soft { background: #f4e7de; border: 1px solid #e7c9bb; color: #743524; font-weight: 700; }
+-.btn-soft:hover { background: #edd7ca; color: #5f271a; }
+-.btn-outline-ink { border-color: #554b45; color: #554b45; font-weight: 700; }
++.btn-soft { background: #f4e7de; border: 1px solid #b79684; color: #622918; font-weight: 700; }
++.btn-soft:hover { background: #edd7ca; color: #4e1d10; }
++.btn-outline-ink { border-color: #554b45; color: #403732; font-weight: 700; }
+ .btn-outline-ink:hover { background: #554b45; color: white; }
++.btn:disabled { cursor: not-allowed; opacity: .7; }
+ 
+ .restaurant-card { height: 100%; overflow: hidden; background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 18px; box-shadow: 0 8px 24px rgba(63, 45, 34, .06); transition: transform .18s ease, box-shadow .18s ease; }
+ .restaurant-card:hover { transform: translateY(-4px); box-shadow: var(--tt-shadow); }
+ .restaurant-card img { width: 100%; height: 210px; object-fit: cover; }
+ .restaurant-card .card-body { padding: 1.35rem; }
+-.restaurant-card h2 { font: 700 1.55rem/1.1 Georgia, 'Times New Roman', serif; letter-spacing: -.025em; }
+-.rating { color: #8c4d22; font-weight: 800; }
++.restaurant-card h3 { font: 700 1.55rem/1.1 Georgia, 'Times New Roman', serif; letter-spacing: -.025em; }
++.rating { color: #71301f; font-weight: 800; }
+ .meta { color: var(--tt-muted); font-size: .92rem; }
+-.tag { display: inline-block; margin: 0 .25rem .25rem 0; padding: .25rem .54rem; border-radius: 999px; background: #f5eee8; color: #675b54; font-size: .76rem; }
+-.empty-state { border: 2px dashed #d8c8bb; border-radius: 18px; padding: 3rem 1.5rem; text-align: center; color: var(--tt-muted); }
++.tag { display: inline-block; margin: 0 .25rem .25rem 0; padding: .25rem .54rem; border-radius: 999px; background: #f5eee8; color: #51463f; font-size: .76rem; }
++.empty-state { border: 2px dashed #aa907f; border-radius: 18px; padding: 3rem 1.5rem; text-align: center; color: var(--tt-muted); }
+ .state-panel { background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 18px; color: var(--tt-muted); padding: 2rem 1.5rem; text-align: center; }
+-.state-error { border-color: #dc9d91; color: #733323; }
++.state-error { border-color: #b84b3e; color: #662319; }
+ 
+-.restaurant-hero { min-height: 360px; color: white; display: flex; align-items: end; background: linear-gradient(0deg, rgba(26, 22, 19, .76), rgba(26, 22, 19, .08)), url('../assets/restaurant-interior-unsplash.jpg') center/cover; padding: 3.5rem 0; }
+-.restaurant-hero .meta { color: #f1e9e1; }
++.restaurant-hero { min-height: 360px; color: white; display: flex; align-items: end; background: linear-gradient(0deg, rgba(26, 22, 19, .80), rgba(26, 22, 19, .16)), url('../assets/restaurant-interior-unsplash.jpg') center/cover; padding: 3.5rem 0; }
++.restaurant-hero .meta { color: #fff5ec; }
+ .gallery-image { width: 100%; height: 250px; object-fit: cover; border-radius: 16px; }
+ .menu-row { border-bottom: 1px solid var(--tt-line); padding: 1rem 0; }
+ .menu-row:last-child { border-bottom: 0; }
+@@ -66,20 +73,16 @@ a:hover { color: var(--tt-clay); }
+ 
+ .auth-shell { min-height: calc(100vh - 210px); display: grid; place-items: center; padding: 3rem 0; }
+ .auth-card { width: min(100%, 500px); padding: clamp(1.5rem, 4vw, 2.5rem); }
+-.auth-visual { background: linear-gradient(135deg, rgba(37, 28, 24, .76), rgba(37, 28, 24, .32)), url('../assets/luxury-interior-unsplash.jpg') center/cover; min-height: 230px; border-radius: 16px; color: white; padding: 1.5rem; display: flex; align-items: end; }
++.auth-visual { background: linear-gradient(135deg, rgba(37, 28, 24, .80), rgba(37, 28, 24, .46)), url('../assets/luxury-interior-unsplash.jpg') center/cover; min-height: 230px; border-radius: 16px; color: white; padding: 1.5rem; display: flex; align-items: end; }
+ .password-note { font-size: .85rem; color: var(--tt-muted); }
+ 
+-.avatar { width: 74px; height: 74px; display: grid; place-items: center; border-radius: 50%; background: #ead3c8; color: #733323; font: 700 1.8rem Georgia, serif; }
++.avatar { width: 74px; height: 74px; display: grid; place-items: center; border-radius: 50%; background: #ead3c8; color: #662319; font: 700 1.8rem Georgia, serif; }
+ .booking-item { background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 16px; padding: 1.15rem; }
+-.booking-status { background: #e5f0e2; color: #386143; font-size: .78rem; font-weight: 800; }
+-.notice { border-left: 4px solid var(--tt-clay); background: #f8ebe5; color: #693225; padding: 1rem 1.1rem; border-radius: 0 10px 10px 0; }
+-footer { background: #302a27; color: #e9e0d8; }
++.booking-status { background: #e5f0e2; color: #294f31; border: 1px solid #98b39b; font-size: .78rem; font-weight: 800; }
++.notice { border-left: 4px solid var(--tt-clay-deep); background: #f8ebe5; color: #542014; padding: 1rem 1.1rem; border-radius: 0 10px 10px 0; }
++footer { background: #302a27; color: #f3e9e0; }
+ footer a { color: #fff1e7; }
+ 
+-@media (max-width: 767.98px) {
+-  .hero, .restaurant-hero { min-height: 310px; padding: 2.5rem 0; }
+-  .filter-panel { margin-top: -18px; }
+-  .restaurant-card img { height: 190px; }
+-  .gallery-image { height: 200px; }
+-}
++@media (max-width: 767.98px) { .hero, .restaurant-hero { min-height: 310px; padding: 2.5rem 0; } .filter-panel { margin-top: -18px; } .restaurant-card img { height: 190px; } .gallery-image { height: 200px; } }
+ @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
++@media (forced-colors: active) { :focus-visible { outline: 3px solid CanvasText; outline-offset: 3px; box-shadow: none; } }
+diff --git a/labs/К3440/Макаров Егор/lab2/tests/a11y.e2e.test.mjs b/labs/К3440/Макаров Егор/lab2/tests/a11y.e2e.test.mjs
+new file mode 100644
+index 0000000..51d0217
+--- /dev/null
++++ b/labs/К3440/Макаров Егор/lab2/tests/a11y.e2e.test.mjs	
+@@ -0,0 +1,97 @@
++import assert from 'node:assert/strict';
++import { after, before, test } from 'node:test';
++import { spawn } from 'node:child_process';
++import { resolve } from 'node:path';
++import { fileURLToPath } from 'node:url';
++import { chromium } from 'playwright';
++
++const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
++const web = 'http://127.0.0.1:5172';
++let processGroup;
++let browser;
++
++async function waitForWeb() {
++  const deadline = Date.now() + 20_000;
++  let lastError;
++  while (Date.now() < deadline) {
++    try {
++      const response = await fetch(web);
++      if (response.ok) return;
++    } catch (error) {
++      lastError = error;
++    }
++    await new Promise((resolveDelay) => setTimeout(resolveDelay, 250));
++  }
++  throw new Error(`Web application did not start in time: ${lastError?.message || 'no response'}`);
++}
++
++before(async () => {
++  processGroup = spawn('npm', ['run', 'dev'], {
++    cwd: root,
++    env: { ...process.env },
++    stdio: 'pipe',
++    shell: true,
++    detached: true
++  });
++  await waitForWeb();
++  browser = await chromium.launch({ headless: true });
++});
++
++after(async () => {
++  await browser?.close();
++  if (processGroup?.pid) process.kill(-processGroup.pid, 'SIGTERM');
++});
++
++test('a11y: search page has landmarks, named controls and a visible skip-link focus target', async () => {
++  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
++  await page.goto(`${web}/index.html`);
++  await page.getByRole('main').waitFor();
++
++  await assert.doesNotReject(() => page.getByRole('navigation', { name: 'Основная навигация' }).waitFor());
++  await assert.doesNotReject(() => page.getByRole('main').waitFor());
++  await assert.doesNotReject(() => page.getByRole('searchbox', { name: 'Поиск' }).waitFor());
++  await assert.doesNotReject(() => page.getByRole('combobox', { name: 'Кухня' }).waitFor());
++  await assert.doesNotReject(() => page.getByRole('button', { name: 'Сбросить фильтры' }).waitFor());
++
++  await page.keyboard.press('Tab');
++  const skipLink = page.getByRole('link', { name: 'Перейти к основному содержимому' });
++  await assert.equal(await skipLink.evaluate((element) => document.activeElement === element), true);
++  await assert.equal(await skipLink.evaluate((element) => getComputedStyle(element).transform !== 'none'), true);
++  await page.keyboard.press('Enter');
++  await assert.equal(await page.locator('#main-content').evaluate((element) => document.activeElement === element), true);
++  await page.close();
++});
++
++test('a11y: login form has labels and native invalid state is exposed', async () => {
++  const page = await browser.newPage();
++  await page.goto(`${web}/login.html`);
++  await page.getByRole('heading', { name: 'Войти' }).waitFor();
++
++  await assert.equal(await page.locator('#loginEmail').evaluate((element) => element.labels[0].textContent.includes('E-mail')), true);
++  await assert.equal(await page.locator('#loginPassword').evaluate((element) => element.labels[0].textContent.includes('Пароль')), true);
++  await page.getByRole('button', { name: 'Войти в учебный профиль' }).click();
++  await assert.equal(await page.locator('#loginEmail').getAttribute('aria-invalid'), 'true');
++  await assert.equal(await page.locator('#loginPassword').getAttribute('aria-invalid'), 'true');
++  await page.close();
++});
++
++test('a11y: booking dialog uses named modal semantics and returns focus', async () => {
++  const context = await browser.newContext();
++  const page = await context.newPage();
++  await page.goto(`${web}/login.html`);
++  await page.getByRole('button', { name: 'Подставить демо-данные' }).click();
++  await page.getByRole('button', { name: 'Войти в учебный профиль' }).click();
++  await page.waitForURL('**/profile.html');
++  await page.goto(`${web}/restaurant.html?id=baltic-table`);
++  const opener = page.getByRole('button', { name: 'Забронировать столик' });
++  await opener.click();
++  const dialog = page.getByRole('dialog', { name: 'Забронировать столик' });
++  await dialog.waitFor();
++  await assert.equal(await dialog.getAttribute('aria-modal'), 'true');
++  await assert.equal(await dialog.locator('#bookingDate').evaluate((element) => element.labels[0].textContent.includes('Дата')), true);
++  await page.getByRole('button', { name: 'Закрыть форму бронирования' }).click();
++  await dialog.waitFor({ state: 'hidden' });
++  await page.waitForFunction(() => document.activeElement?.id === 'detailReserve');
++  await assert.equal(await opener.evaluate((element) => document.activeElement === element), true);
++  await context.close();
++});

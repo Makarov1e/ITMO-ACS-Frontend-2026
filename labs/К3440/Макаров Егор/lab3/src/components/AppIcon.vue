@@ -1,0 +1,1 @@
+<template><svg class="icon" :class="size" :aria-hidden="label ? undefined : 'true'" :role="label ? 'img' : undefined"><title v-if="label">{{ label }}</title><use :href="`/assets/icons.svg#icon-${name}`" /></svg></template><script setup>defineProps({ name: { type: String, required: true }, label: String, size: { type: String, default: '' } });</script>

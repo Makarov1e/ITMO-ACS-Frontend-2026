@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TableTime — учебный интерфейс бронирования ресторанов в Санкт-Петербурге.">
+  <title>Профиль — TableTime</title>
+</head>
+<body data-page="profile">
+  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+  <header id="site-header"></header>
+  <main id="main-content" tabindex="-1">
+    <section class="container py-5" aria-labelledby="profile-title"><p class="eyebrow">Личный кабинет</p><h1 class="section-title mb-4" id="profile-title">Профиль гостя</h1><div class="row g-4"><div class="col-lg-4"><aside class="profile-card p-4" aria-label="Краткая информация о профиле"><div class="d-flex align-items-center gap-3"><div class="avatar" id="avatarInitial" aria-hidden="true">Г</div><div><h2 class="h4 mb-1" id="profileName">Гость</h2><p class="meta mb-0" id="profileEmail">guest@tabletime.local</p></div></div><hr><a class="btn btn-clay w-100" href="bookings.html">Мои бронирования</a></aside></div><div class="col-lg-8"><section class="profile-card p-4 p-md-5" aria-labelledby="contact-title"><div id="demoProfileNotice" class="notice mb-4" hidden role="status"><strong>Демо-режим.</strong> Этот профиль создан для показа интерфейса; его данные находятся только в локальном учебном API.</div><h2 class="h3 mb-1" id="contact-title">Контактные данные</h2><p class="lead-muted">Имя сохраняется в учебном API. E-mail в этой работе менять нельзя.</p><div id="profileMessage" class="alert" hidden role="alert" aria-atomic="true"></div><form id="profileForm" class="row g-3"><div class="col-md-6"><label class="form-label" for="profileFormName">Имя <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><input class="form-control" id="profileFormName" name="name" autocomplete="name" required minlength="2"></div><div class="col-md-6"><label class="form-label" for="profileFormEmail">E-mail</label><input class="form-control" id="profileFormEmail" type="email" disabled aria-describedby="profileEmailHint"><div id="profileEmailHint" class="form-text">E-mail нельзя менять в учебной сессии.</div></div><div class="col-12"><button class="btn btn-clay" type="submit">Сохранить изменения</button></div></form></section></div></div></section>
+  </main>
+  <footer id="site-footer"></footer>
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

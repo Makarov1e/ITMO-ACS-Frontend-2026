@@ -1,0 +1,13 @@
+{
+  "name": "frontend-hw1-verification",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test:git": "node scripts/verify-git.mjs",
+    "test:css": "node scripts/verify-css.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.55.0"
+  }
+}

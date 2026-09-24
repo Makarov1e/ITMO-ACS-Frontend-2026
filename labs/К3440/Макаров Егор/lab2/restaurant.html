@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TableTime — учебный интерфейс бронирования ресторанов в Санкт-Петербурге.">
+  <title>Ресторан — TableTime</title>
+</head>
+<body data-page="restaurant">
+  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+  <header id="site-header"></header>
+  <main id="main-content" tabindex="-1">
+    <section class="restaurant-hero" id="restaurantHero" aria-labelledby="restaurantName"><div class="container"><p class="eyebrow mb-2">Демонстрационная карточка ресторана</p><h1 class="display-title mb-2" id="restaurantName">Загружаем ресторан…</h1><p class="meta mb-3" id="restaurantMeta" aria-live="polite"></p><button class="btn btn-clay" id="detailReserve" type="button">Забронировать столик</button></div></section><section class="container py-5"><div id="restaurantLoadError" class="alert" hidden role="alert" aria-atomic="true"></div><div class="row g-5"><div class="col-lg-7"><p class="eyebrow">О ресторане</p><h2 class="section-title">Сдержанно, тепло, по-настоящему вкусно</h2><p id="restaurantDescription" class="lead-muted"></p><p id="restaurantAddress" class="fw-semibold"></p><div id="restaurantTags" class="mb-4" aria-label="Особенности ресторана"></div><div class="row g-3 mb-5"><div class="col-sm-6"><img class="gallery-image" src="./assets/restaurant-bar-unsplash.jpg" alt="Интерьер ресторана с барной стойкой" loading="lazy"></div><div class="col-sm-6"><img class="gallery-image" src="./assets/luxury-interior-unsplash.jpg" alt="Зал ресторана в тёплом освещении" loading="lazy"></div></div><p class="eyebrow">Отзывы</p><h2 class="section-title mb-4" id="reviews-title">Впечатления гостей</h2><div id="restaurantReviews" role="region" aria-labelledby="reviews-title" aria-live="polite"></div></div><aside class="col-lg-5"><div class="detail-panel p-4 sticky-lg-top" style="top: 96px"><p class="eyebrow">Меню</p><h2 class="h3" id="menu-title">Попробуйте сегодня</h2><div id="restaurantMenu" role="region" aria-labelledby="menu-title" aria-live="polite"></div><a href="index.html" class="btn btn-soft w-100 mt-3">Вернуться к поиску</a></div></aside></div></section>
+  </main>
+  <footer id="site-footer"></footer>
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

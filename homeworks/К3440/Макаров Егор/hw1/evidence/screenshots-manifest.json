@@ -1,0 +1,132 @@
+[
+  {
+    "path": "screenshots/css-grid-garden-level-28-complete.webp",
+    "sha256": "6ff5978c92a5c1d8cddb4a12c5568411a680ad6b13b2cbbc149743ac493346cd",
+    "bytes": 177650
+  },
+  {
+    "path": "screenshots/flexbox-froggy-complete.png",
+    "sha256": "c9d2f89281f53f7628659ec0ba053c988ec23fdce20dbec769c92fdeb7b1f7f1",
+    "bytes": 322997
+  },
+  {
+    "path": "screenshots/flexbox-froggy-last-level.png",
+    "sha256": "631f86796505c3acbc1b89f4465db6c3c33bd87f25db141c16b45c4f4f16fbc9",
+    "bytes": 112038
+  },
+  {
+    "path": "screenshots/flexbox-froggy-level-24.webp",
+    "sha256": "16db13972677945a0b7666193dd8acfc5e2887fbf17e8eb303100a1d0101effc",
+    "bytes": 100550
+  },
+  {
+    "path": "screenshots/git/intro1.png",
+    "sha256": "2ebf7d67dc125300a5db438f5170c9b8fedcdd910b0dff161d461c96acb13f71",
+    "bytes": 122932
+  },
+  {
+    "path": "screenshots/git/intro2.png",
+    "sha256": "cfdba4d981956b5a774207203d0ca9dab7f8889eeeb9d3457be995e17242062f",
+    "bytes": 123842
+  },
+  {
+    "path": "screenshots/git/intro3.png",
+    "sha256": "527e40ebb33c0cae1a2910ec4ccb6ec3c7f832a1689e2ed11f8d966172b91a9f",
+    "bytes": 130116
+  },
+  {
+    "path": "screenshots/git/intro4.png",
+    "sha256": "99eac9bf65cb1363391623528f430e031c550972bd3b34bb320cc37fd12e613f",
+    "bytes": 133606
+  },
+  {
+    "path": "screenshots/git/remote1.png",
+    "sha256": "35f95bea28d60216651f4acef3ea8d24f7f9ed1dadbdfe0fdc8e0ac6f50165dc",
+    "bytes": 122124
+  },
+  {
+    "path": "screenshots/git/remote2.png",
+    "sha256": "d8efebba106be197180e1a3642e818f74e4fe13928ae39df3f538ebd5e722b63",
+    "bytes": 134121
+  },
+  {
+    "path": "screenshots/git/remote3.png",
+    "sha256": "c75d4d14d6155ee88967e3db6bd1aa75f8280c84b56eb635ba429ddce76de089",
+    "bytes": 134303
+  },
+  {
+    "path": "screenshots/git/remote4.png",
+    "sha256": "3833ef23e244190d6b1995a911c46e6b579d8a5f69eadf2c5861d0bd66ab672d",
+    "bytes": 121140
+  },
+  {
+    "path": "screenshots/git/remote5.png",
+    "sha256": "f121144d8d4068b03fb8aa95c641d99f11006de0a7344cff0ce00a2e7a088d3f",
+    "bytes": 128892
+  },
+  {
+    "path": "screenshots/git/remote6.png",
+    "sha256": "1bcc811da8a86a3e4fc891e68097dd7981fcdd57f68a95668d24f1a1bc407542",
+    "bytes": 125002
+  },
+  {
+    "path": "screenshots/git/remote7.png",
+    "sha256": "fad6062dc95bb42195a7e0536a3e5dffc7cd671631a0a95904aec0ddb8357688",
+    "bytes": 131708
+  },
+  {
+    "path": "screenshots/git/remote8.png",
+    "sha256": "57f63dfc8439b2d5cd1ed2d92f0b6ff42b608a157f0e4fe44f0ec8e35b6477bb",
+    "bytes": 137773
+  },
+  {
+    "path": "screenshots/git/remoteAdvanced1.png",
+    "sha256": "0df4a1f9801969f78921e74cb06945c8dbbbe04e8019ff97774b14f10fa7daa5",
+    "bytes": 151980
+  },
+  {
+    "path": "screenshots/git/remoteAdvanced2.png",
+    "sha256": "8fb50c21d3bb7f663fcb8c8c2bc2fcc33f36bcf653fae5a0e1e0abd76313df4d",
+    "bytes": 161761
+  },
+  {
+    "path": "screenshots/git/remoteAdvanced3.png",
+    "sha256": "d83d9550444cb612edd80b370ec856739a699e9e11eba2fb2c1ffcb42e10eba6",
+    "bytes": 138248
+  },
+  {
+    "path": "screenshots/git/remoteAdvanced4.png",
+    "sha256": "5f838487803fb66df400ece48346acc100fbaa7d9e513a29122da0084bd415a7",
+    "bytes": 132268
+  },
+  {
+    "path": "screenshots/git/remoteAdvanced5.png",
+    "sha256": "c36c6c95296b0b591fc228cc59494ddd0268b36b08e839bbb7dccdd671c73f69",
+    "bytes": 135766
+  },
+  {
+    "path": "screenshots/git/remoteAdvanced6.png",
+    "sha256": "4ef23a69babadf030d9dd7c07409b9f16754b2b3c594f1b447c9bf85aaa2b170",
+    "bytes": 140756
+  },
+  {
+    "path": "screenshots/git/remoteAdvanced7.png",
+    "sha256": "8bc86ad0d02892f25215e9d154b019d57b0d47d12b60f3a83c4928e22bf2d14e",
+    "bytes": 127077
+  },
+  {
+    "path": "screenshots/git/remoteAdvanced8.png",
+    "sha256": "c8424bf0ebc4817e21d914e7bd2ae7fc38fd53330f8e1bed7748742941dff3ba",
+    "bytes": 142380
+  },
+  {
+    "path": "screenshots/grid-garden-complete.png",
+    "sha256": "06e7fcaa7fd1033a92fae467b65dcfa7e8a61e5c35c4597d004d40482bbb538f",
+    "bytes": 190472
+  },
+  {
+    "path": "screenshots/grid-garden-last-level.png",
+    "sha256": "ed9e8b384778b29103ccdbcabcccd6962275def9ab7b7c6796a48bc483b93497",
+    "bytes": 141112
+  }
+]

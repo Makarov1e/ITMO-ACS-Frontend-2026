@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TableTime — учебный интерфейс бронирования ресторанов в Санкт-Петербурге.">
+  <title>Вход — TableTime</title>
+</head>
+<body data-page="login">
+  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+  <header id="site-header"></header>
+  <main id="main-content" tabindex="-1">
+    <section class="container auth-shell" aria-labelledby="login-title">
+      <div class="row g-4 align-items-stretch w-100 justify-content-center">
+        <div class="col-lg-5 d-none d-lg-block"><div class="auth-visual"><div><p class="eyebrow">TableTime</p><h1 class="section-title">Ваши планы — в одном спокойном месте</h1></div></div></div>
+        <div class="col-lg-5"><div class="auth-card"><p class="eyebrow">Учебная сессия</p><h1 class="section-title mb-2" id="login-title">Войти</h1><p class="lead-muted">Это локальная демонстрация с HTTP API. Не используйте реальные пароли или персональные данные.</p><div id="loginMessage" class="alert" hidden role="alert" aria-atomic="true"></div>
+          <form id="loginForm"><div class="mb-3"><label class="form-label" for="loginEmail">E-mail <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><input class="form-control" id="loginEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="mb-3"><label class="form-label" for="loginPassword">Пароль <span aria-hidden="true">*</span><span class="visually-hidden">, обязательное поле</span></label><input class="form-control" id="loginPassword" name="password" type="password" autocomplete="current-password" required></div><button class="btn btn-clay w-100" type="submit">Войти в учебный профиль</button></form>
+          <div class="notice small mt-4"><strong>Демо-доступ:</strong> demo@tabletime.local / учебный-доступ<br><button id="demoLogin" class="btn btn-link p-0 small" type="button">Подставить демо-данные</button></div><p class="mb-0 mt-4 small">Нет учебного профиля? <a href="register.html">Зарегистрироваться</a></p>
+        </div></div>
+      </div>
+    </section>
+  </main>
+  <footer id="site-footer"></footer>
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

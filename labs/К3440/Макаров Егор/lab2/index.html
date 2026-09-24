@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TableTime — учебный интерфейс бронирования ресторанов в Санкт-Петербурге.">
+  <title>Рестораны — TableTime</title>
+</head>
+<body data-page="search">
+  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+  <header id="site-header"></header>
+  <main id="main-content" tabindex="-1">
+    <section class="hero" aria-labelledby="search-page-title">
+      <div class="container">
+        <p class="eyebrow mb-2">Санкт-Петербург · учебный сервис</p>
+        <h1 class="display-title mb-3" id="search-page-title">Столик для вечера, который хочется запомнить</h1>
+        <p class="lead mb-0 col-lg-7">Выбирайте демонстрационные рестораны по кухне, району и уровню цен. Данные загружаются через учебный HTTP API; реальные заявки не создаются.</p>
+      </div>
+    </section>
+    <section class="container" aria-label="Поиск ресторанов">
+      <div class="filter-panel p-3 p-md-4">
+        <form id="filtersForm" aria-describedby="filterHelp">
+          <p class="visually-hidden" id="filterHelp">Результаты обновляются после изменения условий поиска.</p>
+          <div class="row g-3 align-items-end">
+            <div class="col-lg-3"><label class="form-label" for="filterQuery">Поиск</label><input class="form-control" id="filterQuery" name="query" type="search" placeholder="Название или особенность"></div>
+            <div class="col-sm-6 col-lg-2"><label class="form-label" for="filterCuisine">Кухня</label><select class="form-select" id="filterCuisine" name="cuisine"><option value="">Любая</option><option>Русская</option><option>Паназиатская</option><option>Итальянская</option><option>Европейская</option></select></div>
+            <div class="col-sm-6 col-lg-2"><label class="form-label" for="filterDistrict">Район</label><select class="form-select" id="filterDistrict" name="district"><option value="">Любой</option><option>Петроградский</option><option>Центральный</option><option>Василеостровский</option><option>Адмиралтейский</option></select></div>
+            <div class="col-sm-6 col-lg-2"><label class="form-label" for="filterPrice">Средний чек</label><select class="form-select" id="filterPrice" name="price"><option value="">Любой</option><option value="1">₽</option><option value="2">₽₽</option><option value="3">₽₽₽</option></select></div>
+            <div class="col-sm-6 col-lg-3 d-flex gap-2"><button class="btn btn-soft w-100" id="resetFilters" type="button">Сбросить фильтры</button></div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <section class="container py-5" aria-labelledby="results-title">
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
+        <div><p class="eyebrow mb-1">Выбор редакции</p><h2 class="section-title mb-0" id="results-title">Рестораны для вашего вечера</h2></div>
+        <p class="lead-muted mb-0" id="resultCount" aria-live="polite" aria-atomic="true"></p>
+      </div>
+      <div class="row g-4" id="restaurantResults" role="region" aria-labelledby="results-title" aria-live="polite" aria-busy="true"></div>
+    </section>
+  </main>
+  <footer id="site-footer"></footer>
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

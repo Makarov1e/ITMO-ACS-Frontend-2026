@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TableTime — учебный интерфейс бронирования ресторанов в Санкт-Петербурге.">
+  <title>Бронирования — TableTime</title>
+</head>
+<body data-page="bookings">
+  <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+  <header id="site-header"></header>
+  <main id="main-content" tabindex="-1">
+    <section class="container py-5" aria-labelledby="bookings-title"><div class="d-flex flex-wrap gap-3 justify-content-between align-items-end mb-4"><div><p class="eyebrow">Учебная история</p><h1 class="section-title mb-0" id="bookings-title">Мои бронирования</h1></div><a class="btn btn-clay" href="index.html">Найти ресторан</a></div><div id="bookingNotice" class="alert alert-success" hidden role="status" aria-atomic="true" tabindex="-1"></div><div id="bookingPageMessage" class="alert" hidden role="alert" aria-atomic="true"></div><div class="notice mb-4"><strong>Важно:</strong> все даты, рестораны и подтверждения демонстрационные. Создание, изменение и отмена выполняются через локальный учебный API, а не в ресторане.</div><div id="bookingList" role="region" aria-labelledby="bookings-title" aria-live="polite" aria-busy="true"></div></section>
+  </main>
+  <footer id="site-footer"></footer>
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

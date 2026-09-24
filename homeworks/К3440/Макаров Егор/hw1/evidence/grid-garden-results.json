@@ -1,0 +1,205 @@
+{
+  "game": "grid-garden",
+  "url": "https://cssgridgarden.com/#ru",
+  "method": "Normal textarea input and Next button; original checker; fresh browser context",
+  "results": [
+    {
+      "level": 1,
+      "accepted": true,
+      "code": "grid-column-start: 3;",
+      "ui": "Уровень 1 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:08.298Z"
+    },
+    {
+      "level": 2,
+      "accepted": true,
+      "code": "grid-column-start: 5;",
+      "ui": "Уровень 2 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:11.143Z"
+    },
+    {
+      "level": 3,
+      "accepted": true,
+      "code": "grid-column-end: 4;",
+      "ui": "Уровень 3 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:14.001Z"
+    },
+    {
+      "level": 4,
+      "accepted": true,
+      "code": "grid-column-end: 2;",
+      "ui": "Уровень 4 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:16.859Z"
+    },
+    {
+      "level": 5,
+      "accepted": true,
+      "code": "grid-column-end: -2;",
+      "ui": "Уровень 5 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:19.710Z"
+    },
+    {
+      "level": 6,
+      "accepted": true,
+      "code": "grid-column-start: -3;",
+      "ui": "Уровень 6 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:22.558Z"
+    },
+    {
+      "level": 7,
+      "accepted": true,
+      "code": "grid-column-end: span 2;",
+      "ui": "Уровень 7 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:25.409Z"
+    },
+    {
+      "level": 8,
+      "accepted": true,
+      "code": "grid-column-end: span 5;",
+      "ui": "Уровень 8 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:28.259Z"
+    },
+    {
+      "level": 9,
+      "accepted": true,
+      "code": "grid-column-start: span 3;",
+      "ui": "Уровень 9 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:31.109Z"
+    },
+    {
+      "level": 10,
+      "accepted": true,
+      "code": "grid-column: 4 / 6;",
+      "ui": "Уровень 10 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:33.958Z"
+    },
+    {
+      "level": 11,
+      "accepted": true,
+      "code": "grid-column: 2 / span 3;",
+      "ui": "Уровень 11 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:36.808Z"
+    },
+    {
+      "level": 12,
+      "accepted": true,
+      "code": "grid-row-start: 3;",
+      "ui": "Уровень 12 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:39.679Z"
+    },
+    {
+      "level": 13,
+      "accepted": true,
+      "code": "grid-row: 3 / 6;",
+      "ui": "Уровень 13 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:42.543Z"
+    },
+    {
+      "level": 14,
+      "accepted": true,
+      "code": "grid-column: 2;\ngrid-row: 5;",
+      "ui": "Уровень 14 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:45.411Z"
+    },
+    {
+      "level": 15,
+      "accepted": true,
+      "code": "grid-column: 2 / 6;\ngrid-row: 1 / 6;",
+      "ui": "Уровень 15 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:48.279Z"
+    },
+    {
+      "level": 16,
+      "accepted": true,
+      "code": "grid-area: 1 / 2 / 4 / 6;",
+      "ui": "Уровень 16 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:51.143Z"
+    },
+    {
+      "level": 17,
+      "accepted": true,
+      "code": "grid-area: 2 / 3 / 5 / 6;",
+      "ui": "Уровень 17 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:53.992Z"
+    },
+    {
+      "level": 18,
+      "accepted": true,
+      "code": "order: 2;",
+      "ui": "Уровень 18 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:56.860Z"
+    },
+    {
+      "level": 19,
+      "accepted": true,
+      "code": "order: -1;",
+      "ui": "Уровень 19 из 28 ▾",
+      "checkedAt": "2026-09-24T14:23:59.725Z"
+    },
+    {
+      "level": 20,
+      "accepted": true,
+      "code": "grid-template-columns: 50% 50%;",
+      "ui": "Уровень 20 из 28 ▾",
+      "checkedAt": "2026-09-24T14:24:02.592Z"
+    },
+    {
+      "level": 21,
+      "accepted": true,
+      "code": "grid-template-columns: repeat(8, 12.5%);",
+      "ui": "Уровень 21 из 28 ▾",
+      "checkedAt": "2026-09-24T14:24:05.444Z"
+    },
+    {
+      "level": 22,
+      "accepted": true,
+      "code": "grid-template-columns: 100px 3em 40%;",
+      "ui": "Уровень 22 из 28 ▾",
+      "checkedAt": "2026-09-24T14:24:08.292Z"
+    },
+    {
+      "level": 23,
+      "accepted": true,
+      "code": "grid-template-columns: 1fr 5fr;",
+      "ui": "Уровень 23 из 28 ▾",
+      "checkedAt": "2026-09-24T14:24:11.201Z"
+    },
+    {
+      "level": 24,
+      "accepted": true,
+      "code": "grid-template-columns: 50px 1fr 1fr 1fr 50px;",
+      "ui": "Уровень 24 из 28 ▾",
+      "checkedAt": "2026-09-24T14:24:14.078Z"
+    },
+    {
+      "level": 25,
+      "accepted": true,
+      "code": "grid-template-columns: 75px 3fr 2fr;\ngrid-template-rows: 100%;",
+      "ui": "Уровень 25 из 28 ▾",
+      "checkedAt": "2026-09-24T14:24:16.961Z"
+    },
+    {
+      "level": 26,
+      "accepted": true,
+      "code": "grid-template-rows: 50px 0 0 0 1fr;",
+      "ui": "Уровень 26 из 28 ▾",
+      "checkedAt": "2026-09-24T14:24:19.823Z"
+    },
+    {
+      "level": 27,
+      "accepted": true,
+      "code": "grid-template: 60% / 200px 1fr;",
+      "ui": "Уровень 27 из 28 ▾",
+      "checkedAt": "2026-09-24T14:24:22.693Z"
+    },
+    {
+      "level": 28,
+      "accepted": true,
+      "code": "grid-template: 1fr 50px / 1fr 4fr;",
+      "ui": "Уровень 28 из 28 ▾",
+      "checkedAt": "2026-09-24T14:24:25.542Z"
+    }
+  ],
+  "finalScreen": "GRID GARDEN\nУровень 28 из 28 ▾\n\nВы победили! Благодаря силе CSS Grid Layout вы смогли вырастить достаточно моркови для Froggy, чтобы испечь его знаменитый 20-морковный пирог. Что, ожидали другого прыгучего друга?\n\nЕсли вам понравился Grid Garden, посмотрите Flexbox Froggy, чтобы изучить другие новые возможности CSS. Вы также можете следить за моими проектами в моём блоге или в твиттере.\n\nИ расскажите своим друзьям и семье про Grid Garden!\n\nИгра Grid Garden создана Codepip • YouTube • Twitter • GitHub • Русский\nWant to learn more CSS? Play Flexbox Froggy or Anchoreum.",
+  "screenshot": "screenshots/grid-garden-complete.png"
+}
