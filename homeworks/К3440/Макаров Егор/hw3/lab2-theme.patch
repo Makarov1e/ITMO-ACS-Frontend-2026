@@ -1,0 +1,477 @@
+diff --git a/labs/К3440/Макаров Егор/lab2/package.json b/labs/К3440/Макаров Егор/lab2/package.json
+index 1086963..b6b5d0b 100644
+--- a/labs/К3440/Макаров Егор/lab2/package.json	
++++ b/labs/К3440/Макаров Егор/lab2/package.json	
+@@ -14,6 +14,7 @@
+     "test": "node --test tests/api.test.mjs",
+     "test:e2e": "node --test tests/browser.e2e.test.mjs",
+     "test:a11y": "node --test tests/a11y.e2e.test.mjs",
++    "test:theme": "node --test tests/theme.e2e.test.mjs",
+     "test:sprite": "node --test tests/sprite.e2e.test.mjs"
+   },
+   "dependencies": {
+diff --git a/labs/К3440/Макаров Егор/lab2/src/app.js b/labs/К3440/Макаров Егор/lab2/src/app.js
+index 4ca3b21..751b602 100644
+--- a/labs/К3440/Макаров Егор/lab2/src/app.js	
++++ b/labs/К3440/Макаров Егор/lab2/src/app.js	
+@@ -1,11 +1,13 @@
+ import 'bootstrap';
+ import { Modal } from 'bootstrap';
+ import { ApiError, api, authApi, bookingApi, clearSession, getSession, saveSession } from './api.js';
++import { createThemeController } from './theme.js';
+ import './sprite-icons.js';
+ import './styles.css';
+ 
+ const $ = (selector, parent = document) => parent.querySelector(selector);
+ const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector)];
++const theme = createThemeController();
+ let restaurants = [];
+ let editing = null;
+ let modalReturnFocus = null;
+@@ -38,12 +40,13 @@ function prepareFormValidation(form) {
+ function nav(active) {
+   const user = getSession()?.user;
+   const current = (page) => active === page ? ' aria-current="page"' : '';
+-  return `<nav class="navbar navbar-expand-lg sticky-top" aria-label="Основная навигация"><div class="container py-2"><a class="brand" href="index.html" aria-label="TableTime, на главную">table<span class="brand-dot">time</span></a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню"><span class="navbar-toggler-icon" aria-hidden="true"></span></button><div class="collapse navbar-collapse" id="mainNav"><ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1"><li class="nav-item"><a class="nav-link${active === 'search' ? ' active' : ''}" href="index.html"${current('search')}>Рестораны</a></li><li class="nav-item"><a class="nav-link${active === 'bookings' ? ' active' : ''}" href="bookings.html"${current('bookings')}>Бронирования</a></li><li class="nav-item"><a class="nav-link${active === 'profile' ? ' active' : ''}" href="profile.html"${current('profile')}>Профиль</a></li>${user ? `<li class="nav-item ms-lg-2"><span class="small text-secondary me-lg-2">${esc(user.name)}</span><button class="btn btn-sm btn-outline-ink" id="logoutButton" type="button">Выйти</button></li>` : '<li class="nav-item ms-lg-2"><a class="btn btn-sm btn-clay" href="login.html">Войти</a></li>'}</ul></div></div></nav>`;
++  return `<nav class="navbar navbar-expand-lg sticky-top" aria-label="Основная навигация"><div class="container py-2"><a class="brand" href="index.html" aria-label="TableTime, на главную">table<span class="brand-dot">time</span></a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню"><span class="navbar-toggler-icon" aria-hidden="true"></span></button><div class="collapse navbar-collapse" id="mainNav"><ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1"><li class="nav-item"><a class="nav-link${active === 'search' ? ' active' : ''}" href="index.html"${current('search')}>Рестораны</a></li><li class="nav-item"><a class="nav-link${active === 'bookings' ? ' active' : ''}" href="bookings.html"${current('bookings')}>Бронирования</a></li><li class="nav-item"><a class="nav-link${active === 'profile' ? ' active' : ''}" href="profile.html"${current('profile')}>Профиль</a></li><li class="nav-item ms-lg-2" data-theme-controls></li>${user ? `<li class="nav-item ms-lg-2"><span class="small text-secondary me-lg-2">${esc(user.name)}</span><button class="btn btn-sm btn-outline-ink" id="logoutButton" type="button">Выйти</button></li>` : '<li class="nav-item ms-lg-2"><a class="btn btn-sm btn-clay" href="login.html">Войти</a></li>'}</ul></div></div></nav>`;
+ }
+ function shell() {
+   const page = document.body.dataset.page || '';
+   $('#site-header').innerHTML = nav(page);
+   $('#site-footer').innerHTML = `<div class="container py-4"><div class="row g-3 align-items-center"><div class="col-md"><a class="brand text-decoration-none" href="index.html" aria-label="TableTime, на главную">table<span class="brand-dot">time</span></a><p class="small mb-0 mt-1">Учебный интерфейс бронирования. Рестораны, отзывы и брони — демонстрационные; API работает локально.</p></div><div class="col-md-auto small text-md-end"><a href="https://unsplash.com/license" target="_blank" rel="noreferrer">Фото: Unsplash License <span class="visually-hidden">(откроется в новой вкладке)</span></a><br><span>ЛР2 · Макаров Егор · К3440</span></div></div></div>`;
++  $$('[data-theme-controls]').forEach((control) => theme.mount(control));
+   $('#logoutButton')?.addEventListener('click', () => { clearSession(); location.href = 'index.html'; });
+ }
+ function card(restaurant) {
+diff --git a/labs/К3440/Макаров Егор/lab2/src/styles.css b/labs/К3440/Макаров Егор/lab2/src/styles.css
+index 2105b24..5a47d4e 100644
+--- a/labs/К3440/Макаров Егор/lab2/src/styles.css	
++++ b/labs/К3440/Макаров Егор/lab2/src/styles.css	
+@@ -1,21 +1,90 @@
+ @import "bootstrap/dist/css/bootstrap.min.css";
+ 
+ :root {
++  color-scheme: light dark;
++  --tt-font-sans: Inter, Arial, sans-serif;
++  --tt-font-serif: Georgia, 'Times New Roman', serif;
+   --tt-ink: #292523;
+   --tt-muted: #625a55;
+   --tt-milk: #f8f3eb;
+   --tt-paper: #fffdfa;
++  --tt-surface-raised: #fffdfa;
+   --tt-clay: #a94e38;
+   --tt-clay-deep: #71301f;
++  --tt-on-clay: #fff;
+   --tt-focus: #7a321f;
+   --tt-sage: #dce5d8;
++  --tt-success-ink: #29462c;
++  --tt-success-line: #95ae91;
+   --tt-line: #d5c8bc;
++  --tt-field-bg: #fffdfa;
++  --tt-field-line: #8c786a;
++  --tt-soft-bg: #f4e7de;
++  --tt-soft-hover: #edd7ca;
++  --tt-soft-ink: #622918;
++  --tt-outline: #554b45;
++  --tt-tag-bg: #f5eee8;
++  --tt-tag-ink: #51463f;
++  --tt-notice-bg: #f8ebe5;
++  --tt-notice-ink: #542014;
++  --tt-danger: #9b241a;
++  --tt-danger-soft: #ffdcd5;
++  --tt-footer-bg: #302a27;
++  --tt-footer-ink: #fdf4ed;
++  --tt-hero-scrim: rgba(32, 27, 24, .86);
++  --tt-hero-scrim-end: rgba(32, 27, 24, .48);
+   --tt-shadow: 0 16px 36px rgba(63, 45, 34, .12);
++  --tt-card-shadow: 0 8px 24px rgba(63, 45, 34, .06);
++  --bs-body-bg: var(--tt-milk);
++  --bs-body-color: var(--tt-ink);
++  --bs-secondary-color: var(--tt-muted);
++  --bs-secondary-color-rgb: 98, 90, 85;
++  --bs-tertiary-bg: var(--tt-paper);
++  --bs-border-color: var(--tt-line);
++  --bs-emphasis-color: var(--tt-ink);
++  --bs-link-color: var(--tt-clay-deep);
++  --bs-link-hover-color: var(--tt-clay);
++}
++
++html[data-theme="dark"] {
++  color-scheme: dark;
++  --tt-ink: #f8eee5;
++  --tt-muted: #d4c5b9;
++  --tt-milk: #1d1918;
++  --tt-paper: #292321;
++  --tt-surface-raised: #312a27;
++  --tt-clay: #f28d70;
++  --tt-clay-deep: #ffb29b;
++  --tt-on-clay: #211512;
++  --tt-focus: #ffd18c;
++  --tt-sage: #253b2b;
++  --tt-success-ink: #c9eccb;
++  --tt-success-line: #628a6b;
++  --tt-line: #5c4e47;
++  --tt-field-bg: #211c1a;
++  --tt-field-line: #ab9387;
++  --tt-soft-bg: #422d28;
++  --tt-soft-hover: #59342b;
++  --tt-soft-ink: #ffe0d4;
++  --tt-outline: #e7d4c9;
++  --tt-tag-bg: #3b302c;
++  --tt-tag-ink: #f0dcd1;
++  --tt-notice-bg: #452a23;
++  --tt-notice-ink: #ffe0d1;
++  --tt-danger: #ffb4a6;
++  --tt-danger-soft: #512a27;
++  --tt-footer-bg: #151211;
++  --tt-footer-ink: #fff7f1;
++  --tt-hero-scrim: rgba(9, 7, 6, .88);
++  --tt-hero-scrim-end: rgba(9, 7, 6, .56);
++  --tt-shadow: 0 16px 36px rgba(0, 0, 0, .32);
++  --tt-card-shadow: 0 8px 24px rgba(0, 0, 0, .24);
++  --bs-secondary-color-rgb: 212, 197, 185;
+ }
+ 
+ * { box-sizing: border-box; }
+-html { scroll-behavior: smooth; }
+-body { background: var(--tt-milk); color: var(--tt-ink); font-family: Inter, Arial, sans-serif; line-height: 1.55; }
++html { background: var(--tt-milk); scroll-behavior: smooth; }
++body { background: var(--tt-milk); color: var(--tt-ink); font-family: var(--tt-font-sans); line-height: 1.55; }
+ main { min-height: calc(100vh - 206px); }
+ a { color: inherit; }
+ a:not(.btn):not(.brand):not(.nav-link) { text-decoration-thickness: .1em; text-underline-offset: .16em; }
+@@ -24,65 +93,82 @@ a:hover { color: var(--tt-clay-deep); }
+ .skip-link { background: var(--tt-paper); border: 2px solid var(--tt-focus); border-radius: 0 0 .5rem .5rem; color: var(--tt-ink); font-weight: 700; left: 1rem; padding: .65rem .9rem; position: fixed; top: 0; transform: translateY(-130%); transition: transform .15s ease; z-index: 2000; }
+ .skip-link:focus { color: var(--tt-ink); transform: translateY(0); }
+ 
+-.brand { font-family: Georgia, 'Times New Roman', serif; font-size: 1.65rem; font-weight: 700; letter-spacing: -.04em; text-decoration: none; }
++.brand { font-family: var(--tt-font-serif); font-size: 1.65rem; font-weight: 700; letter-spacing: -.04em; text-decoration: none; }
+ .brand .brand-dot { color: var(--tt-clay); }
+-.navbar { background: rgba(255, 253, 250, .97); border-bottom: 1px solid var(--tt-line); }
++.navbar { background: color-mix(in srgb, var(--tt-paper) 94%, transparent); border-bottom: 1px solid var(--tt-line); }
+ .navbar .nav-link { color: var(--tt-ink); font-weight: 700; }
+ .navbar .nav-link.active, .navbar .nav-link:hover { color: var(--tt-clay-deep); text-decoration: underline; text-decoration-thickness: .12em; text-underline-offset: .28em; }
+-.navbar-toggler { border-color: #6a5c54; }
+-.badge-demo { background: var(--tt-sage); color: #29462c; border: 1px solid #95ae91; font-size: .72rem; font-weight: 700; letter-spacing: .03em; }
++.navbar-toggler { border-color: var(--tt-field-line); }
++.navbar-toggler-icon { filter: var(--tt-toggler-filter, none); }
++html[data-theme="dark"] { --tt-toggler-filter: invert(1); }
++.badge-demo { background: var(--tt-sage); border: 1px solid var(--tt-success-line); color: var(--tt-success-ink); font-size: .72rem; font-weight: 700; letter-spacing: .03em; }
++
++.theme-switcher { align-items: stretch; border: 1px solid var(--tt-line); border-radius: .55rem; display: inline-flex; margin: 0; overflow: hidden; padding: 0; }
++.theme-switcher__input { block-size: 1px; clip: rect(0 0 0 0); clip-path: inset(50%); inline-size: 1px; margin: -1px; overflow: hidden; position: absolute; white-space: nowrap; }
++.theme-switcher__label { color: var(--tt-muted); cursor: pointer; font-size: .76rem; font-weight: 700; line-height: 1; margin: 0; padding: .52rem .55rem; white-space: nowrap; }
++.theme-switcher__label + .theme-switcher__input { border-left: 1px solid var(--tt-line); }
++.theme-switcher__input:checked + .theme-switcher__label { background: var(--tt-clay); color: var(--tt-on-clay); }
++.theme-switcher__input:focus-visible + .theme-switcher__label { outline: 3px solid var(--tt-focus); outline-offset: -3px; position: relative; z-index: 1; }
+ 
+-.hero { background: linear-gradient(105deg, rgba(32, 27, 24, .86), rgba(32, 27, 24, .48)), url('../assets/fine-dining-unsplash.jpg') center/cover; min-height: 360px; display: grid; align-items: end; padding: 4rem 0; color: white; }
+-.eyebrow { color: var(--tt-clay-deep); text-transform: uppercase; font-size: .75rem; letter-spacing: .13em; font-weight: 800; }
++.hero { background: linear-gradient(105deg, var(--tt-hero-scrim), var(--tt-hero-scrim-end)), url('../assets/fine-dining-unsplash.jpg') center/cover; color: #fff; display: grid; align-items: end; min-height: 360px; padding: 4rem 0; }
++.eyebrow { color: var(--tt-clay-deep); font-size: .75rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+ .hero .eyebrow { color: #ffe4d3; }
+-.display-title { font: 700 clamp(2.25rem, 5vw, 4.4rem)/.98 Georgia, 'Times New Roman', serif; letter-spacing: -.05em; max-width: 730px; }
+-.section-title { font: 700 clamp(1.85rem, 3.5vw, 3rem)/1.05 Georgia, 'Times New Roman', serif; letter-spacing: -.035em; }
++.display-title { font: 700 clamp(2.25rem, 5vw, 4.4rem)/.98 var(--tt-font-serif); letter-spacing: -.05em; max-width: 730px; }
++.section-title { font: 700 clamp(1.85rem, 3.5vw, 3rem)/1.05 var(--tt-font-serif); letter-spacing: -.035em; }
+ .lead-muted { color: var(--tt-muted); }
+ 
+ .filter-panel, .profile-card, .booking-card, .detail-panel, .auth-card { background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 18px; box-shadow: var(--tt-shadow); }
+ .filter-panel { margin-top: -30px; position: relative; z-index: 2; }
+ .form-label { font-size: .84rem; font-weight: 700; margin-bottom: .35rem; }
+-.form-control, .form-select { background: #fffdfa; border-color: #aa9a8d; min-height: 46px; }
+-.form-control:focus, .form-select:focus { border-color: var(--tt-clay-deep); box-shadow: 0 0 0 .25rem rgba(122, 50, 31, .22); }
+-.form-control[aria-invalid="true"], .form-select[aria-invalid="true"] { border-color: #9b241a; box-shadow: 0 0 0 .2rem rgba(155, 36, 26, .18); }
+-.btn-clay { --bs-btn-color: #fff; --bs-btn-bg: var(--tt-clay); --bs-btn-border-color: var(--tt-clay); --bs-btn-hover-color: #fff; --bs-btn-hover-bg: var(--tt-clay-deep); --bs-btn-hover-border-color: var(--tt-clay-deep); --bs-btn-active-bg: var(--tt-clay-deep); --bs-btn-active-border-color: var(--tt-clay-deep); font-weight: 700; }
+-.btn-soft { background: #f4e7de; border: 1px solid #b79684; color: #622918; font-weight: 700; }
+-.btn-soft:hover { background: #edd7ca; color: #4e1d10; }
+-.btn-outline-ink { border-color: #554b45; color: #403732; font-weight: 700; }
+-.btn-outline-ink:hover { background: #554b45; color: white; }
++.form-control, .form-select { background: var(--tt-field-bg); border-color: var(--tt-field-line); color: var(--tt-ink); min-height: 46px; }
++.form-control::placeholder { color: var(--tt-muted); opacity: .9; }
++.form-control:focus, .form-select:focus { background: var(--tt-field-bg); border-color: var(--tt-clay-deep); box-shadow: 0 0 0 .25rem color-mix(in srgb, var(--tt-focus) 28%, transparent); color: var(--tt-ink); }
++.form-control[aria-invalid="true"], .form-select[aria-invalid="true"] { border-color: var(--tt-danger); box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--tt-danger) 24%, transparent); }
++.btn-clay { --bs-btn-color: var(--tt-on-clay); --bs-btn-bg: var(--tt-clay); --bs-btn-border-color: var(--tt-clay); --bs-btn-hover-color: var(--tt-on-clay); --bs-btn-hover-bg: var(--tt-clay-deep); --bs-btn-hover-border-color: var(--tt-clay-deep); --bs-btn-active-bg: var(--tt-clay-deep); --bs-btn-active-border-color: var(--tt-clay-deep); font-weight: 700; }
++.btn-soft { background: var(--tt-soft-bg); border: 1px solid var(--tt-field-line); color: var(--tt-soft-ink); font-weight: 700; }
++.btn-soft:hover { background: var(--tt-soft-hover); color: var(--tt-soft-ink); }
++.btn-outline-ink { border-color: var(--tt-outline); color: var(--tt-outline); font-weight: 700; }
++.btn-outline-ink:hover { background: var(--tt-outline); color: var(--tt-paper); }
+ .btn:disabled { cursor: not-allowed; opacity: .7; }
+ 
+-.restaurant-card { height: 100%; overflow: hidden; background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 18px; box-shadow: 0 8px 24px rgba(63, 45, 34, .06); transition: transform .18s ease, box-shadow .18s ease; }
+-.restaurant-card:hover { transform: translateY(-4px); box-shadow: var(--tt-shadow); }
+-.restaurant-card img { width: 100%; height: 210px; object-fit: cover; }
++.restaurant-card { background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 18px; box-shadow: var(--tt-card-shadow); height: 100%; overflow: hidden; transition: transform .18s ease, box-shadow .18s ease; }
++.restaurant-card:hover { box-shadow: var(--tt-shadow); transform: translateY(-4px); }
++.restaurant-card img { height: 210px; object-fit: cover; width: 100%; }
+ .restaurant-card .card-body { padding: 1.35rem; }
+-.restaurant-card h3 { font: 700 1.55rem/1.1 Georgia, 'Times New Roman', serif; letter-spacing: -.025em; }
+-.rating { color: #71301f; font-weight: 800; }
++.restaurant-card h3 { font: 700 1.55rem/1.1 var(--tt-font-serif); letter-spacing: -.025em; }
++.rating { color: var(--tt-clay-deep); font-weight: 800; }
+ .meta { color: var(--tt-muted); font-size: .92rem; }
+-.tag { display: inline-block; margin: 0 .25rem .25rem 0; padding: .25rem .54rem; border-radius: 999px; background: #f5eee8; color: #51463f; font-size: .76rem; }
+-.empty-state { border: 2px dashed #aa907f; border-radius: 18px; padding: 3rem 1.5rem; text-align: center; color: var(--tt-muted); }
++.tag { background: var(--tt-tag-bg); border-radius: 999px; color: var(--tt-tag-ink); display: inline-block; font-size: .76rem; margin: 0 .25rem .25rem 0; padding: .25rem .54rem; }
++.empty-state { border: 2px dashed var(--tt-field-line); border-radius: 18px; color: var(--tt-muted); padding: 3rem 1.5rem; text-align: center; }
+ .state-panel { background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 18px; color: var(--tt-muted); padding: 2rem 1.5rem; text-align: center; }
+-.state-error { border-color: #b84b3e; color: #662319; }
++.state-error { border-color: var(--tt-danger); color: var(--tt-danger); }
+ 
+-.restaurant-hero { min-height: 360px; color: white; display: flex; align-items: end; background: linear-gradient(0deg, rgba(26, 22, 19, .80), rgba(26, 22, 19, .16)), url('../assets/restaurant-interior-unsplash.jpg') center/cover; padding: 3.5rem 0; }
++.restaurant-hero { align-items: end; background: linear-gradient(0deg, var(--tt-hero-scrim), color-mix(in srgb, var(--tt-hero-scrim-end) 35%, transparent)), url('../assets/restaurant-interior-unsplash.jpg') center/cover; color: #fff; display: flex; min-height: 360px; padding: 3.5rem 0; }
+ .restaurant-hero .meta { color: #fff5ec; }
+-.gallery-image { width: 100%; height: 250px; object-fit: cover; border-radius: 16px; }
++.gallery-image { border-radius: 16px; height: 250px; object-fit: cover; width: 100%; }
+ .menu-row { border-bottom: 1px solid var(--tt-line); padding: 1rem 0; }
+ .menu-row:last-child { border-bottom: 0; }
+ .review { border-left: 3px solid var(--tt-clay); padding-left: 1rem; }
+ 
+-.auth-shell { min-height: calc(100vh - 210px); display: grid; place-items: center; padding: 3rem 0; }
+-.auth-card { width: min(100%, 500px); padding: clamp(1.5rem, 4vw, 2.5rem); }
+-.auth-visual { background: linear-gradient(135deg, rgba(37, 28, 24, .80), rgba(37, 28, 24, .46)), url('../assets/luxury-interior-unsplash.jpg') center/cover; min-height: 230px; border-radius: 16px; color: white; padding: 1.5rem; display: flex; align-items: end; }
+-.password-note { font-size: .85rem; color: var(--tt-muted); }
++.auth-shell { display: grid; min-height: calc(100vh - 210px); padding: 3rem 0; place-items: center; }
++.auth-card { padding: clamp(1.5rem, 4vw, 2.5rem); width: min(100%, 500px); }
++.auth-visual { align-items: end; background: linear-gradient(135deg, var(--tt-hero-scrim), var(--tt-hero-scrim-end)), url('../assets/luxury-interior-unsplash.jpg') center/cover; border-radius: 16px; color: #fff; display: flex; min-height: 230px; padding: 1.5rem; }
++.password-note { color: var(--tt-muted); font-size: .85rem; }
+ 
+-.avatar { width: 74px; height: 74px; display: grid; place-items: center; border-radius: 50%; background: #ead3c8; color: #662319; font: 700 1.8rem Georgia, serif; }
++.avatar { align-items: center; background: var(--tt-soft-bg); border-radius: 50%; color: var(--tt-clay-deep); display: grid; font: 700 1.8rem var(--tt-font-serif); height: 74px; place-items: center; width: 74px; }
+ .booking-item { background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 16px; padding: 1.15rem; }
+-.booking-status { background: #e5f0e2; color: #294f31; border: 1px solid #98b39b; font-size: .78rem; font-weight: 800; }
+-.notice { border-left: 4px solid var(--tt-clay-deep); background: #f8ebe5; color: #542014; padding: 1rem 1.1rem; border-radius: 0 10px 10px 0; }
+-footer { background: #302a27; color: #f3e9e0; }
+-footer a { color: #fff1e7; }
++.booking-status { background: var(--tt-sage); border: 1px solid var(--tt-success-line); color: var(--tt-success-ink); font-size: .78rem; font-weight: 800; }
++.notice { background: var(--tt-notice-bg); border-left: 4px solid var(--tt-clay-deep); border-radius: 0 10px 10px 0; color: var(--tt-notice-ink); padding: 1rem 1.1rem; }
++.alert { --bs-alert-color: var(--tt-ink); --bs-alert-bg: var(--tt-surface-raised); --bs-alert-border-color: var(--tt-line); }
++.alert-danger { --bs-alert-color: var(--tt-danger); --bs-alert-bg: var(--tt-danger-soft); --bs-alert-border-color: var(--tt-danger); }
++.alert-success { --bs-alert-color: var(--tt-success-ink); --bs-alert-bg: var(--tt-sage); --bs-alert-border-color: var(--tt-success-line); }
++.modal-content { background: var(--tt-paper); border-color: var(--tt-line); color: var(--tt-ink); }
++.modal-header, .modal-footer { border-color: var(--tt-line); }
++.btn-close { filter: var(--tt-toggler-filter, none); }
++footer { background: var(--tt-footer-bg); color: var(--tt-footer-ink); }
++footer a { color: var(--tt-footer-ink); }
+ 
++@media (max-width: 991.98px) { .theme-switcher { margin: .5rem 0; } }
+ @media (max-width: 767.98px) { .hero, .restaurant-hero { min-height: 310px; padding: 2.5rem 0; } .filter-panel { margin-top: -18px; } .restaurant-card img { height: 190px; } .gallery-image { height: 200px; } }
+ @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+-@media (forced-colors: active) { :focus-visible { outline: 3px solid CanvasText; outline-offset: 3px; box-shadow: none; } }
++@media (forced-colors: active) { :focus-visible { box-shadow: none; outline: 3px solid CanvasText; outline-offset: 3px; } .theme-switcher { border-color: CanvasText; } }
+diff --git a/labs/К3440/Макаров Егор/lab2/src/theme.js b/labs/К3440/Макаров Егор/lab2/src/theme.js
+new file mode 100644
+index 0000000..86e9a0f
+--- /dev/null
++++ b/labs/К3440/Макаров Егор/lab2/src/theme.js	
+@@ -0,0 +1,83 @@
++export const THEME_STORAGE_KEY = 'tabletime.theme';
++export const THEME_OPTIONS = ['system', 'light', 'dark'];
++
++const labels = {
++  system: 'Системная тема',
++  light: 'Светлая тема',
++  dark: 'Тёмная тема'
++};
++
++function safeRead(storage) {
++  try {
++    const value = storage?.getItem(THEME_STORAGE_KEY);
++    return THEME_OPTIONS.includes(value) ? value : 'system';
++  } catch {
++    return 'system';
++  }
++}
++
++function safeWrite(storage, value) {
++  try {
++    storage?.setItem(THEME_STORAGE_KEY, value);
++  } catch {
++    // Настройка остаётся активной до конца текущей вкладки, если хранилище запрещено.
++  }
++}
++
++function effectiveTheme(preference, mediaQuery) {
++  return preference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : preference;
++}
++
++export function createThemeController({
++  root = document.documentElement,
++  storage = window.localStorage,
++  mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
++} = {}) {
++  let preference = safeRead(storage);
++  const apply = () => {
++    const resolved = effectiveTheme(preference, mediaQuery);
++    root.dataset.theme = resolved;
++    root.dataset.themePreference = preference;
++    root.style.colorScheme = resolved;
++    return resolved;
++  };
++
++  const setPreference = (nextPreference) => {
++    preference = THEME_OPTIONS.includes(nextPreference) ? nextPreference : 'system';
++    safeWrite(storage, preference);
++    return apply();
++  };
++
++  const renderControl = (container) => {
++    if (!container) return;
++    container.innerHTML = `<fieldset class="theme-switcher" aria-describedby="themeStatus"><legend class="visually-hidden">Оформление</legend>${THEME_OPTIONS.map((option) => `<input class="theme-switcher__input" type="radio" name="theme" value="${option}" id="theme-${option}"${option === preference ? ' checked' : ''}><label class="theme-switcher__label" for="theme-${option}">${option === 'system' ? 'Система' : option === 'light' ? 'Светлая' : 'Тёмная'}</label>`).join('')}</fieldset><span class="visually-hidden" id="themeStatus" aria-live="polite"></span>`;
++    const status = container.querySelector('#themeStatus');
++    const announce = (resolved) => { status.textContent = `${labels[preference]}. Активна ${resolved === 'dark' ? 'тёмная' : 'светлая'} палитра.`; };
++    container.querySelectorAll('input[name="theme"]').forEach((input) => {
++      input.addEventListener('change', () => {
++        if (!input.checked) return;
++        announce(setPreference(input.value));
++      });
++    });
++    announce(apply());
++  };
++
++  const handleSystemChange = () => {
++    if (preference !== 'system') return;
++    const resolved = apply();
++    document.querySelectorAll('[data-theme-controls]').forEach((container) => {
++      const status = container.querySelector('#themeStatus');
++      if (status) status.textContent = `Системная тема. Активна ${resolved === 'dark' ? 'тёмная' : 'светлая'} палитра.`;
++    });
++  };
++
++  mediaQuery.addEventListener?.('change', handleSystemChange);
++  apply();
++
++  return {
++    apply,
++    getPreference: () => preference,
++    mount: renderControl,
++    setPreference
++  };
++}
+diff --git a/labs/К3440/Макаров Егор/lab2/tests/theme.e2e.test.mjs b/labs/К3440/Макаров Егор/lab2/tests/theme.e2e.test.mjs
+new file mode 100644
+index 0000000..cc9feb9
+--- /dev/null
++++ b/labs/К3440/Макаров Егор/lab2/tests/theme.e2e.test.mjs	
+@@ -0,0 +1,121 @@
++import assert from 'node:assert/strict';
++import { after, before, test } from 'node:test';
++import { spawn } from 'node:child_process';
++import { resolve } from 'node:path';
++import { fileURLToPath } from 'node:url';
++import { chromium } from 'playwright';
++
++const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
++const web = 'http://127.0.0.1:5172';
++let processGroup;
++let browser;
++
++async function waitForWeb() {
++  const deadline = Date.now() + 20_000;
++  let lastError;
++  while (Date.now() < deadline) {
++    try {
++      const response = await fetch(web);
++      if (response.ok) return;
++    } catch (error) {
++      lastError = error;
++    }
++    await new Promise((resolveDelay) => setTimeout(resolveDelay, 250));
++  }
++  throw new Error(`Web application did not start in time: ${lastError?.message || 'no response'}`);
++}
++
++before(async () => {
++  processGroup = spawn('npm', ['run', 'dev'], { cwd: root, env: { ...process.env }, stdio: 'pipe', shell: true, detached: true });
++  await waitForWeb();
++  browser = await chromium.launch({ headless: true });
++});
++
++after(async () => {
++  await browser?.close();
++  if (processGroup?.pid) {
++    try { process.kill(-processGroup.pid, 'SIGTERM'); } catch (error) { if (error.code !== 'ESRCH') throw error; }
++  }
++});
++
++test('theme: light, dark and system choice persist and system preference changes apply live', async () => {
++  const context = await browser.newContext({ colorScheme: 'light', viewport: { width: 1440, height: 1000 } });
++  const page = await context.newPage();
++  await page.goto(`${web}/index.html`);
++  await page.getByRole('radio', { name: 'Система' }).waitFor();
++
++  await assert.equal(await page.locator('html').getAttribute('data-theme'), 'light');
++  await assert.equal(await page.locator('html').getAttribute('data-theme-preference'), 'system');
++  await assert.doesNotReject(() => page.getByRole('group', { name: 'Оформление' }).waitFor());
++
++  await page.locator('label[for="theme-dark"]').click();
++  await assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
++  await assert.equal(await page.evaluate(() => localStorage.getItem('tabletime.theme')), 'dark');
++  await page.screenshot({ path: resolve(root, '../../../../homeworks/К3440/Макаров Егор/hw3/screenshots/tabletime-dark.png'), fullPage: true });
++
++  await page.reload();
++  await assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
++  await assert.equal(await page.getByRole('radio', { name: 'Тёмная' }).isChecked(), true);
++
++  await page.locator('label[for="theme-light"]').click();
++  await assert.equal(await page.locator('html').getAttribute('data-theme'), 'light');
++  await assert.equal(await page.evaluate(() => localStorage.getItem('tabletime.theme')), 'light');
++  await page.screenshot({ path: resolve(root, '../../../../homeworks/К3440/Макаров Егор/hw3/screenshots/tabletime-light.png'), fullPage: true });
++
++  await page.locator('label[for="theme-system"]').click();
++  await assert.equal(await page.evaluate(() => localStorage.getItem('tabletime.theme')), 'system');
++  await page.emulateMedia({ colorScheme: 'dark' });
++  await page.waitForFunction(() => document.documentElement.dataset.theme === 'dark');
++  await assert.equal(await page.locator('html').getAttribute('data-theme-preference'), 'system');
++  await page.screenshot({ path: resolve(root, '../../../../homeworks/К3440/Макаров Егор/hw3/screenshots/tabletime-system-dark.png'), fullPage: true });
++
++  await page.emulateMedia({ colorScheme: 'light' });
++  await page.waitForFunction(() => document.documentElement.dataset.theme === 'light');
++  await context.close();
++});
++
++test('theme: both color schemes retain readable contrast and visible keyboard focus', async () => {
++  for (const scheme of ['light', 'dark']) {
++    const context = await browser.newContext({ colorScheme: scheme });
++    const page = await context.newPage();
++    await page.addInitScript((selectedScheme) => localStorage.setItem('tabletime.theme', selectedScheme), scheme);
++    await page.goto(`${web}/index.html`);
++    await page.waitForFunction((selectedScheme) => document.documentElement.dataset.theme === selectedScheme, scheme);
++    const result = await page.evaluate(() => {
++      const contrast = (foreground, background) => {
++        const parse = (color) => {
++          if (color.startsWith('#')) {
++            const hex = color.slice(1);
++            const normalized = hex.length === 3 ? [...hex].map((part) => `${part}${part}`).join('') : hex;
++            return [0, 2, 4].map((start) => Number.parseInt(normalized.slice(start, start + 2), 16));
++          }
++          return color.match(/\d+(?:\.\d+)?/g).slice(0, 3).map(Number);
++        };
++        const toLinear = (value) => value.map((channel) => {
++          const normalized = channel / 255;
++          return normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
++        });
++        const [r1, g1, b1] = toLinear(parse(foreground));
++        const [r2, g2, b2] = toLinear(parse(background));
++        const luminance = (r, g, b) => 0.2126 * r + 0.7152 * g + 0.0722 * b;
++        const a = luminance(r1, g1, b1);
++        const b = luminance(r2, g2, b2);
++        return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
++      };
++      const root = getComputedStyle(document.documentElement);
++      const css = (name) => root.getPropertyValue(name).trim();
++      return {
++        body: contrast(css('--tt-ink'), css('--tt-milk')),
++        field: contrast(css('--tt-ink'), css('--tt-field-bg')),
++        outline: contrast(css('--tt-outline'), css('--tt-paper'))
++      };
++    });
++    assert.ok(result.body >= 4.5, `${scheme} body contrast is ${result.body}`);
++    assert.ok(result.field >= 4.5, `${scheme} form contrast is ${result.field}`);
++    assert.ok(result.outline >= 4.5, `${scheme} outline button contrast is ${result.outline}`);
++
++    await page.getByRole('radio', { name: 'Система' }).focus();
++    await assert.equal(await page.getByRole('radio', { name: 'Система' }).evaluate((element) => document.activeElement === element), true);
++    await context.close();
++  }
++});
