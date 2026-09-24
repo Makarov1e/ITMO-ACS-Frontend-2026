@@ -1,0 +1,4 @@
+#tt-svg-sprite { display: none; }
+.tt-icon { color: currentColor; display: inline-block; fill: none; flex: 0 0 auto; height: 1em; inline-size: 1em; margin-inline-end: .38em; stroke: currentColor; stroke-width: 0; vertical-align: -.125em; }
+.tt-icon--pin { margin-inline-end: .25em; }
+.tt-icon use { pointer-events: none; }

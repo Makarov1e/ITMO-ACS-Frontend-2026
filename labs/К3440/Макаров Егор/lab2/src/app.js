@@ -1,6 +1,7 @@
 import 'bootstrap';
 import { Modal } from 'bootstrap';
 import { ApiError, api, authApi, bookingApi, clearSession, getSession, saveSession } from './api.js';
+import './sprite-icons.js';
 import './styles.css';
 
 const $ = (selector, parent = document) => parent.querySelector(selector);
