@@ -1,0 +1,177 @@
+{
+  "game": "flexbox-froggy",
+  "url": "https://flexboxfroggy.com/#ru",
+  "method": "Normal textarea input and Next button; original checker; fresh browser context",
+  "results": [
+    {
+      "level": 1,
+      "accepted": true,
+      "code": "justify-content: flex-end;",
+      "ui": "Уровень 1 из 24 ▾",
+      "checkedAt": "2026-09-24T14:21:49.574Z"
+    },
+    {
+      "level": 2,
+      "accepted": true,
+      "code": "justify-content: center;",
+      "ui": "Уровень 2 из 24 ▾",
+      "checkedAt": "2026-09-24T14:21:52.587Z"
+    },
+    {
+      "level": 3,
+      "accepted": true,
+      "code": "justify-content: space-around;",
+      "ui": "Уровень 3 из 24 ▾",
+      "checkedAt": "2026-09-24T14:21:55.629Z"
+    },
+    {
+      "level": 4,
+      "accepted": true,
+      "code": "justify-content: space-between;",
+      "ui": "Уровень 4 из 24 ▾",
+      "checkedAt": "2026-09-24T14:21:58.638Z"
+    },
+    {
+      "level": 5,
+      "accepted": true,
+      "code": "align-items: flex-end;",
+      "ui": "Уровень 5 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:01.658Z"
+    },
+    {
+      "level": 6,
+      "accepted": true,
+      "code": "justify-content: center;\nalign-items: center;",
+      "ui": "Уровень 6 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:04.683Z"
+    },
+    {
+      "level": 7,
+      "accepted": true,
+      "code": "justify-content: space-around;\nalign-items: flex-end;",
+      "ui": "Уровень 7 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:07.701Z"
+    },
+    {
+      "level": 8,
+      "accepted": true,
+      "code": "flex-direction: row-reverse;",
+      "ui": "Уровень 8 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:10.801Z"
+    },
+    {
+      "level": 9,
+      "accepted": true,
+      "code": "flex-direction: column;",
+      "ui": "Уровень 9 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:13.769Z"
+    },
+    {
+      "level": 10,
+      "accepted": true,
+      "code": "flex-direction: row-reverse;\njustify-content: flex-end;",
+      "ui": "Уровень 10 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:16.769Z"
+    },
+    {
+      "level": 11,
+      "accepted": true,
+      "code": "flex-direction: column;\njustify-content: flex-end;",
+      "ui": "Уровень 11 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:19.752Z"
+    },
+    {
+      "level": 12,
+      "accepted": true,
+      "code": "flex-direction: column-reverse;\njustify-content: space-between;",
+      "ui": "Уровень 12 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:22.748Z"
+    },
+    {
+      "level": 13,
+      "accepted": true,
+      "code": "flex-direction: row-reverse;\njustify-content: center;\nalign-items: flex-end;",
+      "ui": "Уровень 13 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:25.791Z"
+    },
+    {
+      "level": 14,
+      "accepted": true,
+      "code": "order: 2;",
+      "ui": "Уровень 14 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:28.819Z"
+    },
+    {
+      "level": 15,
+      "accepted": true,
+      "code": "order: -1;",
+      "ui": "Уровень 15 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:31.853Z"
+    },
+    {
+      "level": 16,
+      "accepted": true,
+      "code": "align-self: flex-end;",
+      "ui": "Уровень 16 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:34.904Z"
+    },
+    {
+      "level": 17,
+      "accepted": true,
+      "code": "order: 2;\nalign-self: flex-end;",
+      "ui": "Уровень 17 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:38.020Z"
+    },
+    {
+      "level": 18,
+      "accepted": true,
+      "code": "flex-wrap: wrap;",
+      "ui": "Уровень 18 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:41.101Z"
+    },
+    {
+      "level": 19,
+      "accepted": true,
+      "code": "flex-direction: column;\nflex-wrap: wrap;",
+      "ui": "Уровень 19 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:44.187Z"
+    },
+    {
+      "level": 20,
+      "accepted": true,
+      "code": "flex-flow: column wrap;",
+      "ui": "Уровень 20 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:47.313Z"
+    },
+    {
+      "level": 21,
+      "accepted": true,
+      "code": "align-content: flex-start;",
+      "ui": "Уровень 21 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:50.395Z"
+    },
+    {
+      "level": 22,
+      "accepted": true,
+      "code": "align-content: flex-end;",
+      "ui": "Уровень 22 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:53.509Z"
+    },
+    {
+      "level": 23,
+      "accepted": true,
+      "code": "flex-direction: column-reverse;\nalign-content: center;",
+      "ui": "Уровень 23 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:56.596Z"
+    },
+    {
+      "level": 24,
+      "accepted": true,
+      "code": "flex-flow: column-reverse wrap-reverse;\njustify-content: center;\nalign-content: space-between;",
+      "ui": "Уровень 24 из 24 ▾",
+      "checkedAt": "2026-09-24T14:22:59.743Z"
+    }
+  ],
+  "finalScreen": "FLEXBOX FROGGY\nУровень 24 из 24 ▾\n\nТы выиграл! Благодарим тебя за мастерство flexbox, ты смог помочь всем лягушатам добраться до своих лилий. Просто взгляни, как они счастливы!\n\nЕсли тебе понравилось, зацени мои другие проекты в моем блоге или твитере, и не забудь поделиться этой игрой со своими друзьями!\n\nИгра Flexbox Froggy создана Codepip • YouTube • Twitter • GitHub • Настройки\nХотите изучить CSS grid? Сыграйте в Grid Garden or Anchoreum.\nDiscover more\nFlexbox Froggy merchandise\nLesbian, Gay, Bisexual & Transgender\nResponsive design templates\nEducational coding games\nWriters Resources",
+  "screenshot": "screenshots/flexbox-froggy-complete.png"
+}

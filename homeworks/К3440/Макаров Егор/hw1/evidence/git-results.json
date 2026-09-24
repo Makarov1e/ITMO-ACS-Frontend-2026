@@ -1,0 +1,292 @@
+{
+  "game": "Learn Git Branching",
+  "source": "https://github.com/pcottle/learnGitBranching",
+  "sourceCommit": "20dfff09e59e42ddc8fbd5dc722e8ddddeb43418",
+  "method": "Visible terminal commands; original game checker; no completion-state modifications",
+  "results": [
+    {
+      "id": "intro1",
+      "name": "Знакомство с Git Commit ",
+      "commands": [
+        "git commit",
+        "git commit"
+      ],
+      "source": "src/levels/intro/commits.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 2 ; а наше решение состоит из 2.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Ветвление в Git\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/intro1.png",
+      "checkedAt": "2026-09-24T14:19:30.177Z"
+    },
+    {
+      "id": "intro2",
+      "name": "Ветвление в Git",
+      "commands": [
+        "git branch bugFix",
+        "git checkout bugFix"
+      ],
+      "source": "src/levels/intro/branching.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 2 ; а наше решение состоит из 2.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Слияния веток в Git\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/intro2.png",
+      "checkedAt": "2026-09-24T14:19:40.351Z"
+    },
+    {
+      "id": "intro3",
+      "name": "Слияния веток в Git",
+      "commands": [
+        "git checkout -b bugFix",
+        "git commit",
+        "git checkout main",
+        "git commit",
+        "git merge bugFix"
+      ],
+      "source": "src/levels/intro/merging.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 5 ; а наше решение состоит из 5.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Введение в rebase\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/intro3.png",
+      "checkedAt": "2026-09-24T14:19:54.028Z"
+    },
+    {
+      "id": "intro4",
+      "name": "Введение в rebase",
+      "commands": [
+        "git checkout -b bugFix",
+        "git commit",
+        "git checkout main",
+        "git commit",
+        "git checkout bugFix",
+        "git rebase main"
+      ],
+      "source": "src/levels/intro/rebasing.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 6 ; а наше решение состоит из 6.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Теряем голову, или detached HEAD\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/intro4.png",
+      "checkedAt": "2026-09-24T14:20:09.154Z"
+    },
+    {
+      "id": "remote1",
+      "name": "Введение в клонирование",
+      "commands": [
+        "git clone"
+      ],
+      "source": "src/levels/remote/clone.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 1 ; а наше решение состоит из 1.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Удалённые ветки\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remote1.png",
+      "checkedAt": "2026-09-24T14:20:17.750Z"
+    },
+    {
+      "id": "remote2",
+      "name": "Удалённые ветки",
+      "commands": [
+        "git commit",
+        "git checkout o/main",
+        "git commit"
+      ],
+      "source": "src/levels/remote/remoteBranches.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 3 ; а наше решение состоит из 3.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Git fetch\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remote2.png",
+      "checkedAt": "2026-09-24T14:20:28.934Z"
+    },
+    {
+      "id": "remote3",
+      "name": "Git fetch",
+      "commands": [
+        "git fetch"
+      ],
+      "source": "src/levels/remote/fetch.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 1 ; а наше решение состоит из 1.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Git pull\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remote3.png",
+      "checkedAt": "2026-09-24T14:20:43.690Z"
+    },
+    {
+      "id": "remote4",
+      "name": "Git pull",
+      "commands": [
+        "git pull"
+      ],
+      "source": "src/levels/remote/pull.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 1 ; а наше решение состоит из 1.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Коллективная работа\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remote4.png",
+      "checkedAt": "2026-09-24T14:20:56.872Z"
+    },
+    {
+      "id": "remote5",
+      "name": "Коллективная работа",
+      "commands": [
+        "git clone",
+        "git fakeTeamwork 2",
+        "git commit ",
+        "git pull"
+      ],
+      "source": "src/levels/remote/fakeTeamwork.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 4 ; а наше решение состоит из 4.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Git push\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remote5.png",
+      "checkedAt": "2026-09-24T14:21:15.626Z"
+    },
+    {
+      "id": "remote6",
+      "name": "Git push",
+      "commands": [
+        "git commit",
+        "git commit",
+        "git push"
+      ],
+      "source": "src/levels/remote/push.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 3 ; а наше решение состоит из 3.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Расхождение в истории\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remote6.png",
+      "checkedAt": "2026-09-24T14:21:29.818Z"
+    },
+    {
+      "id": "remote7",
+      "name": "Расхождение в истории",
+      "commands": [
+        "git clone",
+        "git fakeTeamwork",
+        "git commit",
+        "git pull --rebase",
+        "git push"
+      ],
+      "source": "src/levels/remote/fetchRebase.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 5 ; а наше решение состоит из 5.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Заблокированная ветвь main\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remote7.png",
+      "checkedAt": "2026-09-24T14:21:47.554Z"
+    },
+    {
+      "id": "remote8",
+      "name": "Заблокированная ветвь main",
+      "commands": [
+        "git branch -f main o/main",
+        " git checkout -b feature C2",
+        " git push origin feature"
+      ],
+      "source": "src/levels/remote/lockedMain.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 3 ; а наше решение состоит из 3.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Push Мастер!\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remote8.png",
+      "checkedAt": "2026-09-24T14:21:59.182Z"
+    },
+    {
+      "id": "remoteAdvanced1",
+      "name": "Push Мастер!",
+      "commands": [
+        "git fetch",
+        "git rebase o/main side1",
+        "git rebase side1 side2",
+        "git rebase side2 side3",
+        "git rebase side3 main",
+        "git push"
+      ],
+      "source": "src/levels/remote/pushManyFeatures.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 6 ; а наше решение состоит из 6.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Слияние с удалённым репозиторием\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remoteAdvanced1.png",
+      "checkedAt": "2026-09-24T14:22:31.004Z"
+    },
+    {
+      "id": "remoteAdvanced2",
+      "name": "Слияние с удалённым репозиторием",
+      "commands": [
+        "git checkout main",
+        "git pull",
+        "git merge side1",
+        "git merge side2",
+        "git merge side3",
+        "git push"
+      ],
+      "source": "src/levels/remote/mergeManyFeatures.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 6 ; а наше решение состоит из 6.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Слежка за удалённым репозиторием\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remoteAdvanced2.png",
+      "checkedAt": "2026-09-24T14:23:02.912Z"
+    },
+    {
+      "id": "remoteAdvanced3",
+      "name": "Слежка за удалённым репозиторием",
+      "commands": [
+        "git checkout -b side o/main",
+        "git commit",
+        "git pull --rebase",
+        "git push"
+      ],
+      "source": "src/levels/remote/tracking.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 4 ; а наше решение состоит из 4.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Аргументы git push\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remoteAdvanced3.png",
+      "checkedAt": "2026-09-24T14:23:19.625Z"
+    },
+    {
+      "id": "remoteAdvanced4",
+      "name": "Аргументы git push",
+      "commands": [
+        "git push origin main",
+        "git push origin foo"
+      ],
+      "source": "src/levels/remote/pushArgs.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 2 ; а наше решение состоит из 2.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Аргументы для push -- расширенная версия!\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remoteAdvanced4.png",
+      "checkedAt": "2026-09-24T14:23:31.819Z"
+    },
+    {
+      "id": "remoteAdvanced5",
+      "name": "Аргументы для push -- расширенная версия!",
+      "commands": [
+        "git push origin main^:foo",
+        "git push origin foo:main"
+      ],
+      "source": "src/levels/remote/pushArgs2.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 2 ; а наше решение состоит из 2.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Аргументы для fetch\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remoteAdvanced5.png",
+      "checkedAt": "2026-09-24T14:23:47.031Z"
+    },
+    {
+      "id": "remoteAdvanced6",
+      "name": "Аргументы для fetch",
+      "commands": [
+        "git fetch origin c3:foo",
+        "git fetch origin c6:main",
+        "git checkout foo",
+        "git merge main"
+      ],
+      "source": "src/levels/remote/fetchArgs.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 4 ; а наше решение состоит из 4.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Пустой источник\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remoteAdvanced6.png",
+      "checkedAt": "2026-09-24T14:24:04.325Z"
+    },
+    {
+      "id": "remoteAdvanced7",
+      "name": "Пустой источник",
+      "commands": [
+        "git push origin :foo",
+        "git fetch origin :bar"
+      ],
+      "source": "src/levels/remote/sourceNothing.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 2 ; а наше решение состоит из 2.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nХотите перейти на следующий уровень: \"Аргументы для pull\"?\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remoteAdvanced7.png",
+      "checkedAt": "2026-09-24T14:24:13.988Z"
+    },
+    {
+      "id": "remoteAdvanced8",
+      "name": "Аргументы для pull",
+      "commands": [
+        "git pull origin c3:foo",
+        "git pull origin c2:side"
+      ],
+      "source": "src/levels/remote/pullArgs.js",
+      "accepted": true,
+      "confirmation": "Супер!!!\n\nТы прошёл уровень. Количество использованных команд - 2 ; а наше решение состоит из 2.\n\nОтлично! Ваше решение соответствует или превосходит наше.\n\nВау! Вы прошли последний уровень, отлично! (ﾉ^_^)ﾉ (ﾉ^_^)ﾉ (ﾉ^_^)ﾉ\n\nSHARE YOUR PROGRESS!\n\nX (Twitter)\nLinkedIn\nFacebook\nОтмена\nПодтвердить",
+      "screenshot": "screenshots/git/remoteAdvanced8.png",
+      "checkedAt": "2026-09-24T14:24:32.804Z"
+    }
+  ]
+}
