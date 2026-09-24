@@ -1,0 +1,19 @@
+{
+  "name": "tabletime-lab1",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Учебная многостраничная версия TableTime для ЛР1",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node --test tests/data.test.mjs"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "vite": "^7.1.7"
+  }
+}
