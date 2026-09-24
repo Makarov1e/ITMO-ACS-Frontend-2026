@@ -14,6 +14,7 @@
     "test": "node --test tests/api.test.mjs",
     "test:e2e": "node --test tests/browser.e2e.test.mjs",
     "test:a11y": "node --test tests/a11y.e2e.test.mjs",
+    "test:theme": "node --test tests/theme.e2e.test.mjs",
     "test:sprite": "node --test tests/sprite.e2e.test.mjs"
   },
   "dependencies": {

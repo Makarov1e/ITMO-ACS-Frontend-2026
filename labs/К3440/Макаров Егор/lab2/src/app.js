@@ -1,11 +1,13 @@
 import 'bootstrap';
 import { Modal } from 'bootstrap';
 import { ApiError, api, authApi, bookingApi, clearSession, getSession, saveSession } from './api.js';
+import { createThemeController } from './theme.js';
 import './sprite-icons.js';
 import './styles.css';
 
 const $ = (selector, parent = document) => parent.querySelector(selector);
 const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector)];
+const theme = createThemeController();
 let restaurants = [];
 let editing = null;
 let modalReturnFocus = null;
@@ -38,12 +40,13 @@ function prepareFormValidation(form) {
 function nav(active) {
   const user = getSession()?.user;
   const current = (page) => active === page ? ' aria-current="page"' : '';
-  return `<nav class="navbar navbar-expand-lg sticky-top" aria-label="Основная навигация"><div class="container py-2"><a class="brand" href="index.html" aria-label="TableTime, на главную">table<span class="brand-dot">time</span></a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню"><span class="navbar-toggler-icon" aria-hidden="true"></span></button><div class="collapse navbar-collapse" id="mainNav"><ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1"><li class="nav-item"><a class="nav-link${active === 'search' ? ' active' : ''}" href="index.html"${current('search')}>Рестораны</a></li><li class="nav-item"><a class="nav-link${active === 'bookings' ? ' active' : ''}" href="bookings.html"${current('bookings')}>Бронирования</a></li><li class="nav-item"><a class="nav-link${active === 'profile' ? ' active' : ''}" href="profile.html"${current('profile')}>Профиль</a></li>${user ? `<li class="nav-item ms-lg-2"><span class="small text-secondary me-lg-2">${esc(user.name)}</span><button class="btn btn-sm btn-outline-ink" id="logoutButton" type="button">Выйти</button></li>` : '<li class="nav-item ms-lg-2"><a class="btn btn-sm btn-clay" href="login.html">Войти</a></li>'}</ul></div></div></nav>`;
+  return `<nav class="navbar navbar-expand-lg sticky-top" aria-label="Основная навигация"><div class="container py-2"><a class="brand" href="index.html" aria-label="TableTime, на главную">table<span class="brand-dot">time</span></a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню"><span class="navbar-toggler-icon" aria-hidden="true"></span></button><div class="collapse navbar-collapse" id="mainNav"><ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1"><li class="nav-item"><a class="nav-link${active === 'search' ? ' active' : ''}" href="index.html"${current('search')}>Рестораны</a></li><li class="nav-item"><a class="nav-link${active === 'bookings' ? ' active' : ''}" href="bookings.html"${current('bookings')}>Бронирования</a></li><li class="nav-item"><a class="nav-link${active === 'profile' ? ' active' : ''}" href="profile.html"${current('profile')}>Профиль</a></li><li class="nav-item ms-lg-2" data-theme-controls></li>${user ? `<li class="nav-item ms-lg-2"><span class="small text-secondary me-lg-2">${esc(user.name)}</span><button class="btn btn-sm btn-outline-ink" id="logoutButton" type="button">Выйти</button></li>` : '<li class="nav-item ms-lg-2"><a class="btn btn-sm btn-clay" href="login.html">Войти</a></li>'}</ul></div></div></nav>`;
 }
 function shell() {
   const page = document.body.dataset.page || '';
   $('#site-header').innerHTML = nav(page);
   $('#site-footer').innerHTML = `<div class="container py-4"><div class="row g-3 align-items-center"><div class="col-md"><a class="brand text-decoration-none" href="index.html" aria-label="TableTime, на главную">table<span class="brand-dot">time</span></a><p class="small mb-0 mt-1">Учебный интерфейс бронирования. Рестораны, отзывы и брони — демонстрационные; API работает локально.</p></div><div class="col-md-auto small text-md-end"><a href="https://unsplash.com/license" target="_blank" rel="noreferrer">Фото: Unsplash License <span class="visually-hidden">(откроется в новой вкладке)</span></a><br><span>ЛР2 · Макаров Егор · К3440</span></div></div></div>`;
+  $$('[data-theme-controls]').forEach((control) => theme.mount(control));
   $('#logoutButton')?.addEventListener('click', () => { clearSession(); location.href = 'index.html'; });
 }
 function card(restaurant) {
