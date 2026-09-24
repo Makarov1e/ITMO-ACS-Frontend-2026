@@ -29,7 +29,9 @@ before(async () => {
 });
 after(async () => {
   await browser?.close();
-  if (processGroup?.pid) process.kill(-processGroup.pid, 'SIGTERM');
+  if (processGroup?.pid) {
+    try { process.kill(-processGroup.pid, 'SIGTERM'); } catch (error) { if (error.code !== 'ESRCH') throw error; }
+  }
 });
 
 test('browser: demo login and reservation create, edit, cancel', async () => {

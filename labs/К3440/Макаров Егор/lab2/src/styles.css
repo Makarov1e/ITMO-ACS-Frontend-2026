@@ -138,6 +138,7 @@ html[data-theme="dark"] { --tt-toggler-filter: invert(1); }
 .restaurant-card h3 { font: 700 1.55rem/1.1 var(--tt-font-serif); letter-spacing: -.025em; }
 .rating { color: var(--tt-clay-deep); font-weight: 800; }
 .meta { color: var(--tt-muted); font-size: .92rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .25rem; list-style: none; margin-bottom: 0; padding: 0; }
 .tag { background: var(--tt-tag-bg); border-radius: 999px; color: var(--tt-tag-ink); display: inline-block; font-size: .76rem; margin: 0 .25rem .25rem 0; padding: .25rem .54rem; }
 .empty-state { border: 2px dashed var(--tt-field-line); border-radius: 18px; color: var(--tt-muted); padding: 3rem 1.5rem; text-align: center; }
 .state-panel { background: var(--tt-paper); border: 1px solid var(--tt-line); border-radius: 18px; color: var(--tt-muted); padding: 2rem 1.5rem; text-align: center; }
@@ -167,6 +168,7 @@ html[data-theme="dark"] { --tt-toggler-filter: invert(1); }
 .btn-close { filter: var(--tt-toggler-filter, none); }
 footer { background: var(--tt-footer-bg); color: var(--tt-footer-ink); }
 footer a { color: var(--tt-footer-ink); }
+footer .brand .brand-dot { color: #ffad91; }
 
 @media (max-width: 991.98px) { .theme-switcher { margin: .5rem 0; } }
 @media (max-width: 767.98px) { .hero, .restaurant-hero { min-height: 310px; padding: 2.5rem 0; } .filter-panel { margin-top: -18px; } .restaurant-card img { height: 190px; } .gallery-image { height: 200px; } }

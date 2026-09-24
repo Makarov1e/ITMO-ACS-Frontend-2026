@@ -39,7 +39,9 @@ before(async () => {
 
 after(async () => {
   await browser?.close();
-  if (processGroup?.pid) process.kill(-processGroup.pid, 'SIGTERM');
+  if (processGroup?.pid) {
+    try { process.kill(-processGroup.pid, 'SIGTERM'); } catch (error) { if (error.code !== 'ESRCH') throw error; }
+  }
 });
 
 test('a11y: search page has landmarks, named controls and a visible skip-link focus target', async () => {
