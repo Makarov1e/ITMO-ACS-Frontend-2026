@@ -1,0 +1,1 @@
+<template><div class="state-panel" :class="kind === 'error' ? 'state-error' : ''" :role="kind === 'error' ? 'alert' : 'status'" aria-atomic="true"><slot /></div></template><script setup>defineProps({ kind: { type: String, default: 'loading' } });</script>

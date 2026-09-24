@@ -1,0 +1,1 @@
+<template><section class="container section"><div class="empty-state"><p class="eyebrow">404</p><h1>Страница не найдена</h1><p>Возможно, ссылка устарела.</p><RouterLink class="btn btn-clay" to="/">К ресторанам</RouterLink></div></section></template>
